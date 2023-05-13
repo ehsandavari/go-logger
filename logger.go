@@ -180,12 +180,6 @@ func (r *sLogger) Fatalf(template string, args ...any) {
 }
 
 func (r *sLogger) Sync() error {
-	go func() {
-		err := r.logger.Sync()
-		if err != nil {
-			r.logger.Error("error while syncing", zap.Error(err))
-		}
-	}()
 	return r.sugarLogger.Sync()
 }
 
