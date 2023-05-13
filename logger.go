@@ -46,8 +46,6 @@ func (r *sLogger) getLoggerLevel() zapcore.Level {
 }
 
 func (r *sLogger) config(logLevel zapcore.Level) {
-	logWriter := zapcore.AddSync(os.Stdout)
-
 	var encoderCfg zapcore.EncoderConfig
 	if r.mode == "development" {
 		encoderCfg = zap.NewDevelopmentEncoderConfig()
@@ -81,8 +79,9 @@ func (r *sLogger) config(logLevel zapcore.Level) {
 		log.Fatalln("logger encoder is not valid")
 	}
 
+	logWriter := zapcore.AddSync(os.Stdout)
 	core := zapcore.NewCore(encoder, logWriter, zap.NewAtomicLevelAt(logLevel))
-	zapLogger := zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1))
+	zapLogger := zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1), zap.AddStacktrace(zapcore.ErrorLevel))
 
 	r.logger = zapLogger
 	r.sugarLogger = zapLogger.Sugar()
@@ -180,7 +179,7 @@ func (r *sLogger) Fatalf(template string, args ...any) {
 }
 
 func (r *sLogger) Sync() error {
-	return r.sugarLogger.Sync()
+	return r.logger.Sync()
 }
 
 func (r *sLogger) HttpMiddlewareAccessLogger(method, uri string, status int, size int64, time time.Duration) {
