@@ -20,7 +20,6 @@ type (
 		Fatalf(template string, args ...any)
 		Sync() error
 		Printf(template string, args ...any)
-		Named(name string)
 		HttpMiddlewareAccessLogger(method string, uri string, status int, size int64, time time.Duration)
 		GrpcMiddlewareAccessLogger(method string, time time.Duration, metaData map[string][]string, err error)
 		GrpcMiddlewareAccessLoggerErr(method string, time time.Duration, metaData map[string][]string, err error)

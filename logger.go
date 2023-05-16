@@ -2,7 +2,6 @@ package logger
 
 import (
 	"log"
-	"os"
 	"time"
 
 	"go.uber.org/zap"
@@ -10,18 +9,24 @@ import (
 )
 
 type sLogger struct {
-	level       string
-	mode        string
-	encoder     string
+	sConfig     *sConfig
 	sugarLogger *zap.SugaredLogger
 	logger      *zap.Logger
 }
 
-func NewLogger(level string, mode string, encoder string) ILogger {
+func NewLogger(isDevelopment bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string) ILogger {
 	logger := &sLogger{
-		level:   level,
-		mode:    mode,
-		encoder: encoder,
+		sConfig: &sConfig{
+			isDevelopment:     isDevelopment,
+			level:             level,
+			serviceId:         serviceId,
+			serviceName:       serviceName,
+			serviceNamespace:  serviceNamespace,
+			serviceInstanceId: serviceInstanceId,
+			serviceVersion:    serviceVersion,
+			serviceMode:       serviceMode,
+			serviceCommitId:   serviceCommitId,
+		},
 	}
 	logger.config(logger.getLoggerLevel())
 	return logger
@@ -38,7 +43,7 @@ var loggerLevelMap = map[string]zapcore.Level{
 }
 
 func (r *sLogger) getLoggerLevel() zapcore.Level {
-	level, exist := loggerLevelMap[r.level]
+	level, exist := loggerLevelMap[r.sConfig.level]
 	if !exist {
 		log.Fatalln("logger level is not valid")
 	}
@@ -46,49 +51,46 @@ func (r *sLogger) getLoggerLevel() zapcore.Level {
 }
 
 func (r *sLogger) config(logLevel zapcore.Level) {
-	var encoderCfg zapcore.EncoderConfig
-	if r.mode == "development" {
-		encoderCfg = zap.NewDevelopmentEncoderConfig()
-	} else if r.mode == "production" {
-		encoderCfg = zap.NewProductionEncoderConfig()
-	} else {
-		log.Fatalln("logger mode is not valid")
+	loggerConfig := zap.NewProductionConfig()
+	if r.sConfig.isDevelopment {
+		loggerConfig = zap.NewDevelopmentConfig()
+		loggerConfig.EncoderConfig.EncodeLevel = zapcore.LowercaseColorLevelEncoder
+		loggerConfig.EncoderConfig.ConsoleSeparator = " || "
 	}
 
-	encoderCfg.NameKey = "[SERVICE]"
-	encoderCfg.TimeKey = "[TIME]"
-	encoderCfg.LevelKey = "[LEVEL]"
-	encoderCfg.CallerKey = "[LINE]"
-	encoderCfg.MessageKey = "[MESSAGE]"
-	encoderCfg.EncodeTime = zapcore.ISO8601TimeEncoder
-	encoderCfg.EncodeLevel = zapcore.CapitalLevelEncoder
-	encoderCfg.EncodeCaller = zapcore.ShortCallerEncoder
-	encoderCfg.EncodeDuration = zapcore.StringDurationEncoder
+	loggerConfig.EncoderConfig.NameKey = "[ServiceName]"
+	loggerConfig.EncoderConfig.TimeKey = "[Time]"
+	loggerConfig.EncoderConfig.LevelKey = "[Level]"
+	loggerConfig.EncoderConfig.CallerKey = "[Caller]"
+	loggerConfig.EncoderConfig.FunctionKey = "[Function]"
+	loggerConfig.EncoderConfig.MessageKey = "[Message]"
+	loggerConfig.EncoderConfig.StacktraceKey = "[Stacktrace]"
+	loggerConfig.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 
-	var encoder zapcore.Encoder
-	if r.encoder == "console" {
-		encoderCfg.EncodeLevel = zapcore.CapitalColorLevelEncoder
-		encoderCfg.EncodeCaller = zapcore.FullCallerEncoder
-		encoderCfg.ConsoleSeparator = " | "
-		encoder = zapcore.NewConsoleEncoder(encoderCfg)
-	} else if r.encoder == "json" {
-		encoderCfg.FunctionKey = "[CALLER]"
-		encoderCfg.EncodeName = zapcore.FullNameEncoder
-		encoder = zapcore.NewJSONEncoder(encoderCfg)
-	} else {
-		log.Fatalln("logger encoder is not valid")
+	loggerConfig.Level = zap.NewAtomicLevelAt(logLevel)
+	logger, err := loggerConfig.Build(
+		zap.AddCaller(),
+		zap.AddCallerSkip(1),
+		zap.AddStacktrace(zapcore.ErrorLevel),
+		zap.Fields(
+			zap.Int("[ServiceId]", r.sConfig.serviceId),
+			zap.String("[ServiceNamespace]", r.sConfig.serviceNamespace),
+			zap.String("[ServiceInstanceId]", r.sConfig.serviceInstanceId),
+			zap.String("[ServiceVersion]", r.sConfig.serviceVersion),
+			zap.String("[ServiceMode]", r.sConfig.serviceMode),
+			zap.String("[ServiceCommitId]", r.sConfig.serviceCommitId),
+		),
+	)
+	if err != nil {
+		log.Fatalln("error in build logger : ", err)
 	}
-
-	logWriter := zapcore.AddSync(os.Stdout)
-	core := zapcore.NewCore(encoder, logWriter, zap.NewAtomicLevelAt(logLevel))
-	zapLogger := zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1), zap.AddStacktrace(zapcore.ErrorLevel))
-
-	r.logger = zapLogger
-	r.sugarLogger = zapLogger.Sugar()
+	r.logger = logger
+	r.sugarLogger = logger.Sugar()
+	r.named(r.sConfig.serviceName)
 }
 
-// Named add logger microservice name
-func (r *sLogger) Named(name string) {
+// named add logger microservice name
+func (r *sLogger) named(name string) {
 	r.logger = r.logger.Named(name)
 	r.sugarLogger = r.sugarLogger.Named(name)
 }
