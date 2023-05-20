@@ -1,17 +1,27 @@
 package logger
 
 import (
-	"log"
-	"time"
-
+	"context"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"log"
 )
 
+type ILogger interface {
+	Debug(ctx context.Context, message string)
+	Info(ctx context.Context, message string)
+	Warn(ctx context.Context, message string)
+	Error(ctx context.Context, message string)
+	DPanic(ctx context.Context, message string)
+	Panic(ctx context.Context, message string)
+	Fatal(ctx context.Context, message string)
+	IField
+	Sync() error
+}
+
 type sLogger struct {
-	sConfig     *sConfig
-	sugarLogger *zap.SugaredLogger
-	logger      *zap.Logger
+	sConfig *sConfig
+	sLogger *zap.Logger
 }
 
 func NewLogger(isDevelopment bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string) ILogger {
@@ -84,191 +94,62 @@ func (r *sLogger) config(logLevel zapcore.Level) {
 	if err != nil {
 		log.Fatalln("error in build logger : ", err)
 	}
-	r.logger = logger
-	r.sugarLogger = logger.Sugar()
+	r.sLogger = logger
 	r.named(r.sConfig.serviceName)
 }
 
-// named add logger microservice name
 func (r *sLogger) named(name string) {
-	r.logger = r.logger.Named(name)
-	r.sugarLogger = r.sugarLogger.Named(name)
+	r.sLogger = r.sLogger.Named(name)
 }
 
-// Debug uses fmt.Sprint to construct and log a message.
-func (r *sLogger) Debug(args ...any) {
-	r.sugarLogger.Debug(args...)
+func (r *sLogger) setRequestId(ctx context.Context) *sLogger {
+	value, ok := ctx.Value(RequestID).(string)
+	if ok {
+		r.WithString(RequestID, value)
+	}
+	return r
 }
 
-// Debugf uses fmt.Sprintf to log a templated message
-func (r *sLogger) Debugf(template string, args ...any) {
-	r.sugarLogger.Debugf(template, args...)
+func (r *sLogger) setTraceId(ctx context.Context) *sLogger {
+	value, ok := ctx.Value(TraceID).(string)
+	if ok {
+		r.WithString(TraceID, value)
+	}
+	return r
 }
 
-// Info uses fmt.Sprint to construct and log a message
-func (r *sLogger) Info(args ...any) {
-	r.sugarLogger.Info(args...)
+func (r *sLogger) logger(ctx context.Context) *sLogger {
+	return r.setRequestId(ctx).setTraceId(ctx)
 }
 
-// Infof uses fmt.Sprintf to log a templated message.
-func (r *sLogger) Infof(template string, args ...any) {
-	r.sugarLogger.Infof(template, args...)
+func (r *sLogger) Debug(ctx context.Context, message string) {
+	r.logger(ctx).sLogger.Debug(message)
 }
 
-// Printf uses fmt.Sprintf to log a templated message
-func (r *sLogger) Printf(template string, args ...any) {
-	r.sugarLogger.Infof(template, args...)
+func (r *sLogger) Info(ctx context.Context, message string) {
+	r.logger(ctx).sLogger.Info(message)
 }
 
-// Warn uses fmt.Sprint to construct and log a message.
-func (r *sLogger) Warn(args ...any) {
-	r.sugarLogger.Warn(args...)
+func (r *sLogger) Warn(ctx context.Context, message string) {
+	r.logger(ctx).sLogger.Warn(message)
 }
 
-// WarnErrMsg log error message with warn level.
-func (r *sLogger) WarnErrMsg(msg string, err error) {
-	r.logger.Warn(msg, zap.String("error", err.Error()))
+func (r *sLogger) Error(ctx context.Context, message string) {
+	r.logger(ctx).sLogger.Error(message)
 }
 
-// Warnf uses fmt.Sprintf to log a templated message.
-func (r *sLogger) Warnf(template string, args ...any) {
-	r.sugarLogger.Warnf(template, args...)
+func (r *sLogger) DPanic(ctx context.Context, message string) {
+	r.logger(ctx).sLogger.DPanic(message)
 }
 
-// Error uses fmt.Sprint to construct and log a message.
-func (r *sLogger) Error(args ...any) {
-	r.sugarLogger.Error(args...)
+func (r *sLogger) Panic(ctx context.Context, message string) {
+	r.logger(ctx).sLogger.Panic(message)
 }
 
-// Errorf uses fmt.Sprintf to log a templated message.
-func (r *sLogger) Errorf(template string, args ...any) {
-	r.sugarLogger.Errorf(template, args...)
-}
-
-// Err uses error to log a message.
-func (r *sLogger) Err(msg string, err error) {
-	r.logger.Error(msg, zap.Error(err))
-}
-
-// DPanic uses fmt.Sprint to construct and log a message. In development, the logger then panics. (See DPanicLevel for details.)
-func (r *sLogger) DPanic(args ...any) {
-	r.sugarLogger.DPanic(args...)
-}
-
-// DPanicf uses fmt.Sprintf to log a templated message. In development, the logger then panics. (See DPanicLevel for details.)
-func (r *sLogger) DPanicf(template string, args ...any) {
-	r.sugarLogger.DPanicf(template, args...)
-}
-
-// Panic uses fmt.Sprint to construct and log a message, then panics.
-func (r *sLogger) Panic(args ...any) {
-	r.sugarLogger.Panic(args...)
-}
-
-// Panicf uses fmt.Sprintf to log a templated message, then panics
-func (r *sLogger) Panicf(template string, args ...any) {
-	r.sugarLogger.Panicf(template, args...)
-}
-
-// Fatal uses fmt.Sprint to construct and log a message, then calls os.Exit.
-func (r *sLogger) Fatal(args ...any) {
-	r.sugarLogger.Fatal(args...)
-}
-
-// Fatalf uses fmt.Sprintf to log a templated message, then calls os.Exit.
-func (r *sLogger) Fatalf(template string, args ...any) {
-	r.sugarLogger.Fatalf(template, args...)
+func (r *sLogger) Fatal(ctx context.Context, message string) {
+	r.logger(ctx).sLogger.Fatal(message)
 }
 
 func (r *sLogger) Sync() error {
-	return r.logger.Sync()
-}
-
-func (r *sLogger) HttpMiddlewareAccessLogger(method, uri string, status int, size int64, time time.Duration) {
-	r.logger.Info(
-		Http,
-		zap.String(Method, method),
-		zap.String(Uri, uri),
-		zap.Int(Status, status),
-		zap.Int64(Size, size),
-		zap.Duration(Time, time),
-	)
-}
-
-func (r *sLogger) GrpcMiddlewareAccessLogger(method string, time time.Duration, metaData map[string][]string, err error) {
-	r.logger.Info(
-		Grpc,
-		zap.String(Method, method),
-		zap.Duration(Time, time),
-		zap.Any(MetaData, metaData),
-		zap.Any(Error, err),
-	)
-}
-
-func (r *sLogger) GrpcMiddlewareAccessLoggerErr(method string, time time.Duration, metaData map[string][]string, err error) {
-	r.logger.Error(
-		Grpc,
-		zap.String(Method, method),
-		zap.Duration(Time, time),
-		zap.Any(MetaData, metaData),
-		zap.Any(Error, err),
-	)
-}
-
-func (r *sLogger) GrpcClientInterceptorLogger(method string, req, reply any, time time.Duration, metaData map[string][]string, err error) {
-	r.logger.Info(
-		Grpc,
-		zap.String(Method, method),
-		zap.Any(Request, req),
-		zap.Any(Reply, reply),
-		zap.Duration(Time, time),
-		zap.Any(MetaData, metaData),
-		zap.Any(Error, err),
-	)
-}
-
-func (r *sLogger) GrpcClientInterceptorLoggerErr(method string, req, reply any, time time.Duration, metaData map[string][]string, err error) {
-	r.logger.Error(
-		Grpc,
-		zap.String(Method, method),
-		zap.Any(Request, req),
-		zap.Any(Reply, reply),
-		zap.Duration(Time, time),
-		zap.Any(MetaData, metaData),
-		zap.Any(Error, err),
-	)
-}
-
-func (r *sLogger) KafkaProcessMessage(topic string, partition int, message []byte, workerID int, offset int64, time time.Time) {
-	r.logger.Debug(
-		"(Processing Kafka message)",
-		zap.String(Topic, topic),
-		zap.Int(Partition, partition),
-		zap.Int(MessageSize, len(message)),
-		zap.Int(WorkerID, workerID),
-		zap.Int64(Offset, offset),
-		zap.Time(Time, time),
-	)
-}
-
-func (r *sLogger) KafkaLogCommittedMessage(topic string, partition int, offset int64) {
-	r.logger.Debug(
-		"(Committed Kafka message)",
-		zap.String(Topic, topic),
-		zap.Int(Partition, partition),
-		zap.Int64(Offset, offset),
-	)
-}
-
-func (r *sLogger) KafkaProcessMessageWithHeaders(topic string, partition int, message []byte, workerID int, offset int64, time time.Time, headers map[string]any) {
-	r.logger.Debug(
-		"(Processing Kafka message)",
-		zap.String(Topic, topic),
-		zap.Int(Partition, partition),
-		zap.Int(MessageSize, len(message)),
-		zap.Int(WorkerID, workerID),
-		zap.Int64(Offset, offset),
-		zap.Time(Time, time),
-		zap.Any(KafkaHeaders, headers),
-	)
+	return r.sLogger.Sync()
 }
