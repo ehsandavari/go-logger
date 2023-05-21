@@ -22,6 +22,7 @@ type ILogger interface {
 type sLogger struct {
 	sConfig *sConfig
 	sLogger *zap.Logger
+	fields  []zap.Field
 }
 
 func NewLogger(isDevelopment bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string) ILogger {
@@ -123,31 +124,38 @@ func (r *sLogger) logger(ctx context.Context) *sLogger {
 }
 
 func (r *sLogger) Debug(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Debug(message)
+	r.logger(ctx).sLogger.Debug(message, r.fields...)
+	r.fields = nil
 }
 
 func (r *sLogger) Info(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Info(message)
+	r.logger(ctx).sLogger.Info(message, r.fields...)
+	r.fields = nil
 }
 
 func (r *sLogger) Warn(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Warn(message)
+	r.logger(ctx).sLogger.Warn(message, r.fields...)
+	r.fields = nil
 }
 
 func (r *sLogger) Error(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Error(message)
+	r.logger(ctx).sLogger.Error(message, r.fields...)
+	r.fields = nil
 }
 
 func (r *sLogger) DPanic(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.DPanic(message)
+	r.logger(ctx).sLogger.DPanic(message, r.fields...)
+	r.fields = nil
 }
 
 func (r *sLogger) Panic(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Panic(message)
+	r.logger(ctx).sLogger.Panic(message, r.fields...)
+	r.fields = nil
 }
 
 func (r *sLogger) Fatal(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Fatal(message)
+	r.logger(ctx).sLogger.Fatal(message, r.fields...)
+	r.fields = nil
 }
 
 func (r *sLogger) Sync() error {

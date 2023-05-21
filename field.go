@@ -80,351 +80,351 @@ type IField interface {
 }
 
 func (r *sLogger) WithBinary(key string, value []byte) ILogger {
-	r.sLogger = r.sLogger.With(zap.Binary(key, value))
+	r.fields = append(r.fields, zap.Binary(key, value))
 	return r
 }
 
 func (r *sLogger) WithBool(key string, value bool) ILogger {
-	r.sLogger = r.sLogger.With(zap.Bool(key, value))
+	r.fields = append(r.fields, zap.Bool(key, value))
 	return r
 }
 
 func (r *sLogger) WithBoolp(key string, value *bool) ILogger {
-	r.sLogger = r.sLogger.With(zap.Boolp(key, value))
+	r.fields = append(r.fields, zap.Boolp(key, value))
 	return r
 }
 
 func (r *sLogger) WithByteString(key string, value []byte) ILogger {
-	r.sLogger = r.sLogger.With(zap.ByteString(key, value))
+	r.fields = append(r.fields, zap.ByteString(key, value))
 	return r
 }
 
 func (r *sLogger) WithComplex128(key string, value complex128) ILogger {
-	r.sLogger = r.sLogger.With(zap.Complex128(key, value))
+	r.fields = append(r.fields, zap.Complex128(key, value))
 	return r
 }
 
 func (r *sLogger) WithComplex128p(key string, value *complex128) ILogger {
-	r.sLogger = r.sLogger.With(zap.Complex128p(key, value))
+	r.fields = append(r.fields, zap.Complex128p(key, value))
 	return r
 }
 
 func (r *sLogger) WithComplex64(key string, value complex64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Complex64(key, value))
+	r.fields = append(r.fields, zap.Complex64(key, value))
 	return r
 }
 
 func (r *sLogger) WithComplex64p(key string, value *complex64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Complex64p(key, value))
+	r.fields = append(r.fields, zap.Complex64p(key, value))
 	return r
 }
 
 func (r *sLogger) WithFloat64(key string, value float64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Float64(key, value))
+	r.fields = append(r.fields, zap.Float64(key, value))
 	return r
 }
 
 func (r *sLogger) WithFloat64p(key string, value *float64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Float64p(key, value))
+	r.fields = append(r.fields, zap.Float64p(key, value))
 	return r
 }
 
 func (r *sLogger) WithFloat32(key string, value float32) ILogger {
-	r.sLogger = r.sLogger.With(zap.Float32(key, value))
+	r.fields = append(r.fields, zap.Float32(key, value))
 	return r
 }
 
 func (r *sLogger) WithFloat32p(key string, value *float32) ILogger {
-	r.sLogger = r.sLogger.With(zap.Float32p(key, value))
+	r.fields = append(r.fields, zap.Float32p(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt(key string, value int) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int(key, value))
+	r.fields = append(r.fields, zap.Int(key, value))
 	return r
 }
 
 func (r *sLogger) WithIntp(key string, value *int) ILogger {
-	r.sLogger = r.sLogger.With(zap.Intp(key, value))
+	r.fields = append(r.fields, zap.Intp(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt64(key string, value int64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int64(key, value))
+	r.fields = append(r.fields, zap.Int64(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt64p(key string, value *int64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int64p(key, value))
+	r.fields = append(r.fields, zap.Int64p(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt32(key string, value int32) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int32(key, value))
+	r.fields = append(r.fields, zap.Int32(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt32p(key string, value *int32) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int32p(key, value))
+	r.fields = append(r.fields, zap.Int32p(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt16(key string, value int16) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int16(key, value))
+	r.fields = append(r.fields, zap.Int16(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt16p(key string, value *int16) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int16p(key, value))
+	r.fields = append(r.fields, zap.Int16p(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt8(key string, value int8) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int8(key, value))
+	r.fields = append(r.fields, zap.Int8(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt8p(key string, value *int8) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int8p(key, value))
+	r.fields = append(r.fields, zap.Int8p(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint(key string, value uint) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint(key, value))
+	r.fields = append(r.fields, zap.Uint(key, value))
 	return r
 }
 
 func (r *sLogger) WithUintp(key string, value *uint) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uintp(key, value))
+	r.fields = append(r.fields, zap.Uintp(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint64(key string, value uint64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint64(key, value))
+	r.fields = append(r.fields, zap.Uint64(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint64p(key string, value *uint64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint64p(key, value))
+	r.fields = append(r.fields, zap.Uint64p(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint32(key string, value uint32) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint32(key, value))
+	r.fields = append(r.fields, zap.Uint32(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint32p(key string, value *uint32) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint32p(key, value))
+	r.fields = append(r.fields, zap.Uint32p(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint16(key string, value uint16) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint16(key, value))
+	r.fields = append(r.fields, zap.Uint16(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint16p(key string, value *uint16) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint16p(key, value))
+	r.fields = append(r.fields, zap.Uint16p(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint8(key string, value uint8) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint8(key, value))
+	r.fields = append(r.fields, zap.Uint8(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint8p(key string, value *uint8) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint8p(key, value))
+	r.fields = append(r.fields, zap.Uint8p(key, value))
 	return r
 }
 
 func (r *sLogger) WithUintptr(key string, value uintptr) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uintptr(key, value))
+	r.fields = append(r.fields, zap.Uintptr(key, value))
 	return r
 }
 
 func (r *sLogger) WithUintptrp(key string, value *uintptr) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uintptrp(key, value))
+	r.fields = append(r.fields, zap.Uintptrp(key, value))
 	return r
 }
 
 func (r *sLogger) WithReflect(key string, value any) ILogger {
-	r.sLogger = r.sLogger.With(zap.Reflect(key, value))
+	r.fields = append(r.fields, zap.Reflect(key, value))
 	return r
 }
 
 func (r *sLogger) WithNamespace(key string) ILogger {
-	r.sLogger = r.sLogger.With(zap.Namespace(key))
+	r.fields = append(r.fields, zap.Namespace(key))
 	return r
 }
 
 func (r *sLogger) WithStringer(key string, value fmt.Stringer) ILogger {
-	r.sLogger = r.sLogger.With(zap.Stringer(key, value))
+	r.fields = append(r.fields, zap.Stringer(key, value))
 	return r
 }
 
 func (r *sLogger) WithString(key string, value string) ILogger {
-	r.sLogger = r.sLogger.With(zap.String(key, value))
+	r.fields = append(r.fields, zap.String(key, value))
 	return r
 }
 
 func (r *sLogger) WithStringp(key string, value *string) ILogger {
-	r.sLogger = r.sLogger.With(zap.Stringp(key, value))
+	r.fields = append(r.fields, zap.Stringp(key, value))
 	return r
 }
 
 func (r *sLogger) WithTime(key string, value time.Time) ILogger {
-	r.sLogger = r.sLogger.With(zap.Time(key, value))
+	r.fields = append(r.fields, zap.Time(key, value))
 	return r
 }
 
 func (r *sLogger) WithTimep(key string, value *time.Time) ILogger {
-	r.sLogger = r.sLogger.With(zap.Timep(key, value))
+	r.fields = append(r.fields, zap.Timep(key, value))
 	return r
 }
 
 func (r *sLogger) WithStack(key string) ILogger {
-	r.sLogger = r.sLogger.With(zap.Stack(key))
+	r.fields = append(r.fields, zap.Stack(key))
 	return r
 }
 
 func (r *sLogger) WithStackSkip(key string, skip int) ILogger {
-	r.sLogger = r.sLogger.With(zap.StackSkip(key, skip))
+	r.fields = append(r.fields, zap.StackSkip(key, skip))
 	return r
 }
 
 func (r *sLogger) WithDuration(key string, value time.Duration) ILogger {
-	r.sLogger = r.sLogger.With(zap.Duration(key, value))
+	r.fields = append(r.fields, zap.Duration(key, value))
 	return r
 }
 
 func (r *sLogger) WithDurationp(key string, value *time.Duration) ILogger {
-	r.sLogger = r.sLogger.With(zap.Durationp(key, value))
+	r.fields = append(r.fields, zap.Durationp(key, value))
 	return r
 }
 
 func (r *sLogger) WithAny(key string, value any) ILogger {
-	r.sLogger = r.sLogger.With(zap.Any(key, value))
+	r.fields = append(r.fields, zap.Any(key, value))
 	return r
 }
 
 func (r *sLogger) WithError(value error) ILogger {
-	r.sLogger = r.sLogger.With(zap.Error(value))
+	r.fields = append(r.fields, zap.Error(value))
 	return r
 }
 
 func (r *sLogger) WithNamedError(key string, value error) ILogger {
-	r.sLogger = r.sLogger.With(zap.NamedError(key, value))
+	r.fields = append(r.fields, zap.NamedError(key, value))
 	return r
 }
 
 func (r *sLogger) WithBools(key string, value []bool) ILogger {
-	r.sLogger = r.sLogger.With(zap.Bools(key, value))
+	r.fields = append(r.fields, zap.Bools(key, value))
 	return r
 }
 
 func (r *sLogger) WithByteStrings(key string, value [][]byte) ILogger {
-	r.sLogger = r.sLogger.With(zap.ByteStrings(key, value))
+	r.fields = append(r.fields, zap.ByteStrings(key, value))
 	return r
 }
 
 func (r *sLogger) WithComplex128s(key string, value []complex128) ILogger {
-	r.sLogger = r.sLogger.With(zap.Complex128s(key, value))
+	r.fields = append(r.fields, zap.Complex128s(key, value))
 	return r
 }
 
 func (r *sLogger) WithComplex64s(key string, value []complex64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Complex64s(key, value))
+	r.fields = append(r.fields, zap.Complex64s(key, value))
 	return r
 }
 
 func (r *sLogger) WithDurations(key string, value []time.Duration) ILogger {
-	r.sLogger = r.sLogger.With(zap.Durations(key, value))
+	r.fields = append(r.fields, zap.Durations(key, value))
 	return r
 }
 
 func (r *sLogger) WithFloat64s(key string, value []float64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Float64s(key, value))
+	r.fields = append(r.fields, zap.Float64s(key, value))
 	return r
 }
 
 func (r *sLogger) WithFloat32s(key string, value []float32) ILogger {
-	r.sLogger = r.sLogger.With(zap.Float32s(key, value))
+	r.fields = append(r.fields, zap.Float32s(key, value))
 	return r
 }
 
 func (r *sLogger) WithInts(key string, value []int) ILogger {
-	r.sLogger = r.sLogger.With(zap.Ints(key, value))
+	r.fields = append(r.fields, zap.Ints(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt64s(key string, value []int64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int64s(key, value))
+	r.fields = append(r.fields, zap.Int64s(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt32s(key string, value []int32) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int32s(key, value))
+	r.fields = append(r.fields, zap.Int32s(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt16s(key string, value []int16) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int16s(key, value))
+	r.fields = append(r.fields, zap.Int16s(key, value))
 	return r
 }
 
 func (r *sLogger) WithInt8s(key string, value []int8) ILogger {
-	r.sLogger = r.sLogger.With(zap.Int8s(key, value))
+	r.fields = append(r.fields, zap.Int8s(key, value))
 	return r
 }
 
 func (r *sLogger) WithStrings(key string, value []string) ILogger {
-	r.sLogger = r.sLogger.With(zap.Strings(key, value))
+	r.fields = append(r.fields, zap.Strings(key, value))
 	return r
 }
 
 func (r *sLogger) WithTimes(key string, value []time.Time) ILogger {
-	r.sLogger = r.sLogger.With(zap.Times(key, value))
+	r.fields = append(r.fields, zap.Times(key, value))
 	return r
 }
 
 func (r *sLogger) WithUints(key string, value []uint) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uints(key, value))
+	r.fields = append(r.fields, zap.Uints(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint64s(key string, value []uint64) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint64s(key, value))
+	r.fields = append(r.fields, zap.Uint64s(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint32s(key string, value []uint32) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint32s(key, value))
+	r.fields = append(r.fields, zap.Uint32s(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint16s(key string, value []uint16) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint16s(key, value))
+	r.fields = append(r.fields, zap.Uint16s(key, value))
 	return r
 }
 
 func (r *sLogger) WithUint8s(key string, value []uint8) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uint8s(key, value))
+	r.fields = append(r.fields, zap.Uint8s(key, value))
 	return r
 }
 
 func (r *sLogger) WithUintptrs(key string, value []uintptr) ILogger {
-	r.sLogger = r.sLogger.With(zap.Uintptrs(key, value))
+	r.fields = append(r.fields, zap.Uintptrs(key, value))
 	return r
 }
 
 func (r *sLogger) WithErrors(key string, value []error) ILogger {
-	r.sLogger = r.sLogger.With(zap.Errors(key, value))
+	r.fields = append(r.fields, zap.Errors(key, value))
 	return r
 }
 
 func (r *sLogger) WithStringers(key string, value []fmt.Stringer) ILogger {
-	r.sLogger = r.sLogger.With(zap.Stringers(key, value))
+	r.fields = append(r.fields, zap.Stringers(key, value))
 	return r
 }
