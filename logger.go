@@ -104,17 +104,17 @@ func (r *sLogger) named(name string) {
 }
 
 func (r *sLogger) setRequestId(ctx context.Context) *sLogger {
-	value, ok := ctx.Value(RequestID).(string)
+	value, ok := ctx.Value(RequestId).(string)
 	if ok {
-		r.WithString(RequestID, value)
+		r.WithString(RequestId, value)
 	}
 	return r
 }
 
 func (r *sLogger) setTraceId(ctx context.Context) *sLogger {
-	value, ok := ctx.Value(TraceID).(string)
+	value, ok := ctx.Value(TraceId).(string)
 	if ok {
-		r.WithString(TraceID, value)
+		r.WithString(TraceId, value)
 	}
 	return r
 }

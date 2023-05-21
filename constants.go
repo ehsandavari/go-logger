@@ -1,6 +1,6 @@
 package logger
 
 const (
-	RequestID = "RequestID"
-	TraceID   = "TraceID"
+	RequestId = "RequestId"
+	TraceId   = "TraceId"
 )
