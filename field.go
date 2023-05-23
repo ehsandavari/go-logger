@@ -3,6 +3,7 @@ package logger
 import (
 	"fmt"
 	"go.uber.org/zap"
+	"net/http"
 	"time"
 )
 
@@ -77,6 +78,8 @@ type IField interface {
 	WithUintptrs(key string, value []uintptr) ILogger
 	WithErrors(key string, value []error) ILogger
 	WithStringers(key string, value []fmt.Stringer) ILogger
+	WithHttpRequest(value *http.Request) ILogger
+	WithHttpResponse(value *http.Response) ILogger
 }
 
 func (r *sLogger) WithBinary(key string, value []byte) ILogger {
@@ -426,5 +429,21 @@ func (r *sLogger) WithErrors(key string, value []error) ILogger {
 
 func (r *sLogger) WithStringers(key string, value []fmt.Stringer) ILogger {
 	r.fields = append(r.fields, zap.Stringers(key, value))
+	return r
+}
+
+func (r *sLogger) WithHttpRequest(value *http.Request) ILogger {
+	if value == nil {
+		return r
+	}
+	r.fields = append(r.fields, zap.Object("httpRequest", newHttpRequest(value)))
+	return r
+}
+
+func (r *sLogger) WithHttpResponse(value *http.Response) ILogger {
+	if value == nil {
+		return r
+	}
+	r.fields = append(r.fields, zap.Object("httpResponse", newHttpResponse(value)))
 	return r
 }

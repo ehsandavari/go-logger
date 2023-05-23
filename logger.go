@@ -104,17 +104,17 @@ func (r *sLogger) named(name string) {
 }
 
 func (r *sLogger) setRequestId(ctx context.Context) *sLogger {
-	value, ok := ctx.Value(RequestId).(string)
+	value, ok := ctx.Value(requestId).(string)
 	if ok {
-		r.WithString(RequestId, value)
+		r.WithString(requestId, value)
 	}
 	return r
 }
 
 func (r *sLogger) setTraceId(ctx context.Context) *sLogger {
-	value, ok := ctx.Value(TraceId).(string)
+	value, ok := ctx.Value(traceId).(string)
 	if ok {
-		r.WithString(TraceId, value)
+		r.WithString(traceId, value)
 	}
 	return r
 }
@@ -124,37 +124,37 @@ func (r *sLogger) logger(ctx context.Context) *sLogger {
 }
 
 func (r *sLogger) Debug(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Debug(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Debug(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Info(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Info(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Info(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Warn(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Warn(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Warn(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Error(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Error(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Error(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) DPanic(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.DPanic(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).DPanic(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Panic(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Panic(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Panic(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Fatal(ctx context.Context, message string) {
-	r.logger(ctx).sLogger.Fatal(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Fatal(message, r.fields...)
 	r.fields = nil
 }
 
