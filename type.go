@@ -54,9 +54,11 @@ func (r *httpResponse) MarshalLogObject(objectEncoder zapcore.ObjectEncoder) err
 	if r.response.Body != nil {
 		body, err := io.ReadAll(r.response.Body)
 		if err != nil {
-			return err
+			objectEncoder.AddString("ioReadAllError", err.Error())
 		}
-		objectEncoder.AddString("body", string(body))
+		if len(body) != 0 {
+			objectEncoder.AddString("body", string(body))
+		}
 	}
 	objectEncoder.OpenNamespace("header")
 	for name, values := range r.response.Header {
