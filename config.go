@@ -10,4 +10,5 @@ type sConfig struct {
 	serviceVersion    string
 	serviceMode       string
 	serviceCommitId   string
+	disableStacktrace bool
 }

@@ -23,9 +23,10 @@ type sLogger struct {
 	sConfig *sConfig
 	sLogger *zap.Logger
 	fields  []zap.Field
+	cores   []zapcore.Core
 }
 
-func NewLogger(isDevelopment bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string) ILogger {
+func NewLogger(isDevelopment bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string, disableStacktrace bool, options ...Option) ILogger {
 	logger := &sLogger{
 		sConfig: &sConfig{
 			isDevelopment:     isDevelopment,
@@ -37,9 +38,13 @@ func NewLogger(isDevelopment bool, level string, serviceId int, serviceName stri
 			serviceVersion:    serviceVersion,
 			serviceMode:       serviceMode,
 			serviceCommitId:   serviceCommitId,
+			disableStacktrace: disableStacktrace,
 		},
 	}
-	logger.config(logger.getLoggerLevel())
+	for _, option := range options {
+		option.apply(logger)
+	}
+	logger.init()
 	return logger
 }
 
@@ -61,13 +66,16 @@ func (r *sLogger) getLoggerLevel() zapcore.Level {
 	return level
 }
 
-func (r *sLogger) config(logLevel zapcore.Level) {
+func (r *sLogger) config() zap.Config {
 	loggerConfig := zap.NewProductionConfig()
 	if r.sConfig.isDevelopment {
 		loggerConfig = zap.NewDevelopmentConfig()
 		loggerConfig.EncoderConfig.EncodeLevel = zapcore.LowercaseColorLevelEncoder
 		loggerConfig.EncoderConfig.ConsoleSeparator = " || "
 	}
+
+	loggerConfig.Level = zap.NewAtomicLevelAt(r.getLoggerLevel())
+	loggerConfig.DisableStacktrace = r.sConfig.disableStacktrace
 
 	loggerConfig.EncoderConfig.NameKey = "[ServiceName]"
 	loggerConfig.EncoderConfig.TimeKey = "[Time]"
@@ -77,9 +85,12 @@ func (r *sLogger) config(logLevel zapcore.Level) {
 	loggerConfig.EncoderConfig.MessageKey = "[Message]"
 	loggerConfig.EncoderConfig.StacktraceKey = "[Stacktrace]"
 	loggerConfig.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	return loggerConfig
+}
 
-	loggerConfig.Level = zap.NewAtomicLevelAt(logLevel)
-	logger, err := loggerConfig.Build(
+func (r *sLogger) init() {
+	r.sLogger = zap.New(
+		zapcore.NewTee(r.cores...),
 		zap.AddCaller(),
 		zap.AddCallerSkip(1),
 		zap.AddStacktrace(zapcore.ErrorLevel),
@@ -92,10 +103,6 @@ func (r *sLogger) config(logLevel zapcore.Level) {
 			zap.String("[ServiceCommitId]", r.sConfig.serviceCommitId),
 		),
 	)
-	if err != nil {
-		log.Fatalln("error in build logger : ", err)
-	}
-	r.sLogger = logger
 	r.named(r.sConfig.serviceName)
 }
 

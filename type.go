@@ -3,6 +3,7 @@ package logger
 import (
 	"go.uber.org/zap/zapcore"
 	"io"
+	"moul.io/http2curl"
 	"net/http"
 )
 
@@ -17,6 +18,11 @@ func newHttpRequest(request *http.Request) *httpRequest {
 }
 
 func (r *httpRequest) MarshalLogObject(objectEncoder zapcore.ObjectEncoder) error {
+	command, err := http2curl.GetCurlCommand(r.request)
+	if err != nil {
+		return err
+	}
+	objectEncoder.AddString("curl", command.String())
 	objectEncoder.AddString("url", r.request.URL.String())
 	objectEncoder.AddString("method", r.request.Method)
 	objectEncoder.AddInt64("contentLength", r.request.ContentLength)
