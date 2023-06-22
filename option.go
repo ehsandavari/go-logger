@@ -27,8 +27,11 @@ func WithElk(endpoint string, timeoutSecond byte) Option {
 			log.Fatalln("connecting to logstash failed", err)
 		}
 
+		loggerConfig := logger.config()
+		loggerConfig.EncoderConfig.EncodeLevel = zapcore.LowercaseLevelEncoder
+
 		logger.cores = append(logger.cores, ecszap.WrapCore(zapcore.NewCore(
-			zapcore.NewJSONEncoder(logger.config().EncoderConfig),
+			zapcore.NewJSONEncoder(loggerConfig.EncoderConfig),
 			zapcore.AddSync(conn),
 			zap.NewAtomicLevelAt(logger.getLoggerLevel()),
 		)))
