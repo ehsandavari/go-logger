@@ -26,10 +26,11 @@ type sLogger struct {
 	cores   []zapcore.Core
 }
 
-func NewLogger(isDevelopment bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string, disableStacktrace bool, options ...Option) ILogger {
+func NewLogger(isDevelopment bool, disableStacktrace bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string, options ...Option) ILogger {
 	logger := &sLogger{
 		sConfig: &sConfig{
 			isDevelopment:     isDevelopment,
+			disableStacktrace: disableStacktrace,
 			level:             level,
 			serviceId:         serviceId,
 			serviceName:       serviceName,
@@ -38,7 +39,6 @@ func NewLogger(isDevelopment bool, level string, serviceId int, serviceName stri
 			serviceVersion:    serviceVersion,
 			serviceMode:       serviceMode,
 			serviceCommitId:   serviceCommitId,
-			disableStacktrace: disableStacktrace,
 		},
 	}
 	for _, option := range options {

@@ -2,6 +2,7 @@ package logger
 
 type sConfig struct {
 	isDevelopment     bool
+	disableStacktrace bool
 	level             string
 	serviceId         int
 	serviceName       string
@@ -10,5 +11,4 @@ type sConfig struct {
 	serviceVersion    string
 	serviceMode       string
 	serviceCommitId   string
-	disableStacktrace bool
 }
