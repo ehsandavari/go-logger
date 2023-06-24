@@ -29,11 +29,12 @@ type sLogger struct {
 	cores   []zapcore.Core
 }
 
-func NewLogger(isDevelopment bool, disableStacktrace bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string, options ...Option) ILogger {
+func NewLogger(isDevelopment bool, disableStacktrace bool, disableStdout bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string, options ...Option) ILogger {
 	logger := &sLogger{
 		sConfig: &sConfig{
 			isDevelopment:     isDevelopment,
 			disableStacktrace: disableStacktrace,
+			disableStdout:     disableStdout,
 			level:             level,
 			serviceId:         serviceId,
 			serviceName:       serviceName,
@@ -92,7 +93,7 @@ func (r *sLogger) config() zap.Config {
 }
 
 func (r *sLogger) init() {
-	if r.sConfig.UseStdout {
+	if !r.sConfig.disableStdout {
 		r.cores = append(r.cores, zapcore.NewCore(
 			zapcore.NewConsoleEncoder(r.config().EncoderConfig),
 			zapcore.AddSync(os.Stdout),

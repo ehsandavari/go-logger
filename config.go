@@ -3,7 +3,7 @@ package logger
 type sConfig struct {
 	isDevelopment     bool
 	disableStacktrace bool
-	UseStdout         bool
+	disableStdout     bool
 	level             string
 	serviceId         int
 	serviceName       string
