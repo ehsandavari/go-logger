@@ -5,7 +5,10 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"log"
+	"os"
 )
+
+//go:generate mockgen -destination=./mocks/logger.go -package=mocks github.com/ehsandavari/go-logger ILogger
 
 type ILogger interface {
 	Debug(ctx context.Context, message string)
@@ -89,6 +92,13 @@ func (r *sLogger) config() zap.Config {
 }
 
 func (r *sLogger) init() {
+	if r.sConfig.UseStdout {
+		r.cores = append(r.cores, zapcore.NewCore(
+			zapcore.NewConsoleEncoder(r.config().EncoderConfig),
+			zapcore.AddSync(os.Stdout),
+			zap.NewAtomicLevelAt(r.getLoggerLevel()),
+		))
+	}
 	r.sLogger = zap.New(
 		zapcore.NewTee(r.cores...),
 		zap.AddCaller(),

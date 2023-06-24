@@ -19,7 +19,7 @@ func NewName(name string, name1 string, name2 string) *Name {
 }
 
 func main() {
-	iLogger := logger.NewLogger(false, "debug", 1, "example", "test", "uuid", "1.0.0", "development", "1e56443f5a73adf5f4e26bc0f592b10a4caa282f", false, logger.WithElk("localhost:50000", 5), logger.WithConsole())
+	iLogger := logger.NewLogger(false, false, "debug", 1, "example", "test", "uuid", "1.0.0", "development", "1e56443f5a73adf5f4e26bc0f592b10a4caa282f", logger.WithElk("localhost:50000", 5))
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, "requestId", "valtest")
 	ctx = context.WithValue(ctx, "traceId", "asdfasdf24321")

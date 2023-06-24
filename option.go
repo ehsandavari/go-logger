@@ -6,7 +6,6 @@ import (
 	"go.uber.org/zap/zapcore"
 	"log"
 	"net"
-	"os"
 	"time"
 )
 
@@ -35,15 +34,5 @@ func WithElk(endpoint string, timeoutSecond byte) Option {
 			zapcore.AddSync(conn),
 			zap.NewAtomicLevelAt(logger.getLoggerLevel()),
 		)))
-	})
-}
-
-func WithConsole() Option {
-	return optionFunc(func(logger *sLogger) {
-		logger.cores = append(logger.cores, zapcore.NewCore(
-			zapcore.NewConsoleEncoder(logger.config().EncoderConfig),
-			zapcore.AddSync(os.Stdout),
-			zap.NewAtomicLevelAt(logger.getLoggerLevel()),
-		))
 	})
 }
