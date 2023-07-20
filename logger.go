@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"context"
+	"github.com/ehsandavari/go-context-plus"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"log"
@@ -11,13 +11,13 @@ import (
 //go:generate mockgen -destination=./mocks/logger.go -package=mocks github.com/ehsandavari/go-logger ILogger
 
 type ILogger interface {
-	Debug(ctx context.Context, message string)
-	Info(ctx context.Context, message string)
-	Warn(ctx context.Context, message string)
-	Error(ctx context.Context, message string)
-	DPanic(ctx context.Context, message string)
-	Panic(ctx context.Context, message string)
-	Fatal(ctx context.Context, message string)
+	Debug(ctx contextplus.Context, message string)
+	Info(ctx contextplus.Context, message string)
+	Warn(ctx contextplus.Context, message string)
+	Error(ctx contextplus.Context, message string)
+	DPanic(ctx contextplus.Context, message string)
+	Panic(ctx contextplus.Context, message string)
+	Fatal(ctx contextplus.Context, message string)
 	IField
 	Sync() error
 }
@@ -121,57 +121,57 @@ func (r *sLogger) named(name string) {
 	r.sLogger = r.sLogger.Named(name)
 }
 
-func (r *sLogger) setRequestId(ctx context.Context) *sLogger {
-	value, ok := ctx.Value(requestId).(string)
-	if ok {
-		r.WithString(requestId, value)
+func (r *sLogger) setRequestId(ctx contextplus.Context) *sLogger {
+	requestId := ctx.RequestId()
+	if len(requestId) != 0 {
+		r.WithString("requestId", requestId)
 	}
 	return r
 }
 
-func (r *sLogger) setTraceId(ctx context.Context) *sLogger {
-	value, ok := ctx.Value(traceId).(string)
-	if ok {
-		r.WithString(traceId, value)
+func (r *sLogger) setTraceId(ctx contextplus.Context) *sLogger {
+	traceId := ctx.TraceId()
+	if len(traceId) != 0 {
+		r.WithString("traceId", traceId)
 	}
 	return r
 }
 
-func (r *sLogger) logger(ctx context.Context) *sLogger {
+func (r *sLogger) logger(ctx contextplus.Context) *sLogger {
 	return r.setRequestId(ctx).setTraceId(ctx)
 }
 
-func (r *sLogger) Debug(ctx context.Context, message string) {
+func (r *sLogger) Debug(ctx contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Debug(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Info(ctx context.Context, message string) {
+func (r *sLogger) Info(ctx contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Info(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Warn(ctx context.Context, message string) {
+func (r *sLogger) Warn(ctx contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Warn(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Error(ctx context.Context, message string) {
+func (r *sLogger) Error(ctx contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Error(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) DPanic(ctx context.Context, message string) {
+func (r *sLogger) DPanic(ctx contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).DPanic(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Panic(ctx context.Context, message string) {
+func (r *sLogger) Panic(ctx contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Panic(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Fatal(ctx context.Context, message string) {
+func (r *sLogger) Fatal(ctx contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Fatal(message, r.fields...)
 	r.fields = nil
 }

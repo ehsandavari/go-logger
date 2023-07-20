@@ -3,13 +3,15 @@ module github.com/ehsandavari/go-logger
 go 1.20
 
 require (
+	github.com/ehsandavari/go-context-plus v0.0.2
+	github.com/golang/mock v1.6.0
 	go.elastic.co/ecszap v1.0.1
 	go.uber.org/zap v1.24.0
 	moul.io/http2curl v1.0.0
 )
 
 require (
-	github.com/golang/mock v1.6.0 // indirect
+	github.com/google/uuid v1.3.0 // indirect
 	github.com/magefile/mage v1.15.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/smartystreets/goconvey v1.8.0 // indirect
