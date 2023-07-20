@@ -12,7 +12,7 @@ import (
 
 	contextplus "github.com/ehsandavari/go-context-plus"
 	logger "github.com/ehsandavari/go-logger"
-	gomock "github.com/golang/mock/gomock"
+	gomock "go.uber.org/mock/gomock"
 )
 
 // MockILogger is a mock of ILogger interface.

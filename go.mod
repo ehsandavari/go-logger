@@ -4,8 +4,8 @@ go 1.20
 
 require (
 	github.com/ehsandavari/go-context-plus v0.0.4
-	github.com/golang/mock v1.6.0
 	go.elastic.co/ecszap v1.0.1
+	go.uber.org/mock v0.2.0
 	go.uber.org/zap v1.24.0
 	moul.io/http2curl v1.0.0
 )
