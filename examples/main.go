@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"errors"
 	"github.com/ehsandavari/go-context-plus"
 	"github.com/ehsandavari/go-logger"
@@ -21,7 +20,7 @@ func NewName(name string, name1 string, name2 string) *Name {
 
 func main() {
 	iLogger := logger.NewLogger(false, false, false, "debug", 1, "example", "test", "uuid", "1.0.0", "development", "1e56443f5a73adf5f4e26bc0f592b10a4caa282f", logger.WithElk("localhost:50000", 5))
-	ctx := contextplus.NewContext(context.Background())
+	ctx := contextplus.Background()
 	ctx.SetRequestId("SetRequestId")
 	ctx.SetTraceId("SetTraceId")
 
