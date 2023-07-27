@@ -137,42 +137,54 @@ func (r *sLogger) setTraceId(ctx contextplus.Context) *sLogger {
 	return r
 }
 
+func (r *sLogger) setUser(ctx contextplus.Context) *sLogger {
+	userId := ctx.User.Id().String()
+	if len(userId) != 0 {
+		r.WithString("userId", userId)
+	}
+	userPhoneNumber := ctx.User.PhoneNumber()
+	if len(userPhoneNumber) != 0 {
+		r.WithString("userPhoneNumber", userPhoneNumber)
+	}
+	return r
+}
+
 func (r *sLogger) logger(ctx contextplus.Context) *sLogger {
-	return r.setRequestId(ctx).setTraceId(ctx)
+	return r.setRequestId(ctx).setTraceId(ctx).setUser(ctx)
 }
 
 func (r *sLogger) Debug(ctx contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Debug(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Debug(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Info(ctx contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Info(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Info(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Warn(ctx contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Warn(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Warn(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Error(ctx contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Error(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Error(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) DPanic(ctx contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).DPanic(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).DPanic(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Panic(ctx contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Panic(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Panic(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Fatal(ctx contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Meta]")).Fatal(message, r.fields...)
+	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Fatal(message, r.fields...)
 	r.fields = nil
 }
 
