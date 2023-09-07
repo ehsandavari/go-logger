@@ -11,13 +11,13 @@ import (
 //go:generate mockgen -destination=./mocks/logger.go -package=mocks github.com/ehsandavari/go-logger ILogger
 
 type ILogger interface {
-	Debug(ctx contextplus.Context, message string)
-	Info(ctx contextplus.Context, message string)
-	Warn(ctx contextplus.Context, message string)
-	Error(ctx contextplus.Context, message string)
-	DPanic(ctx contextplus.Context, message string)
-	Panic(ctx contextplus.Context, message string)
-	Fatal(ctx contextplus.Context, message string)
+	Debug(ctx *contextplus.Context, message string)
+	Info(ctx *contextplus.Context, message string)
+	Warn(ctx *contextplus.Context, message string)
+	Error(ctx *contextplus.Context, message string)
+	DPanic(ctx *contextplus.Context, message string)
+	Panic(ctx *contextplus.Context, message string)
+	Fatal(ctx *contextplus.Context, message string)
 	IField
 	Sync() error
 }
@@ -121,7 +121,7 @@ func (r *sLogger) named(name string) {
 	r.sLogger = r.sLogger.Named(name)
 }
 
-func (r *sLogger) setRequestId(ctx contextplus.Context) *sLogger {
+func (r *sLogger) setRequestId(ctx *contextplus.Context) *sLogger {
 	requestId := ctx.RequestId()
 	if len(requestId) != 0 {
 		r.WithString("requestId", requestId)
@@ -129,7 +129,7 @@ func (r *sLogger) setRequestId(ctx contextplus.Context) *sLogger {
 	return r
 }
 
-func (r *sLogger) setTraceId(ctx contextplus.Context) *sLogger {
+func (r *sLogger) setTraceId(ctx *contextplus.Context) *sLogger {
 	traceId := ctx.TraceId()
 	if len(traceId) != 0 {
 		r.WithString("traceId", traceId)
@@ -137,7 +137,7 @@ func (r *sLogger) setTraceId(ctx contextplus.Context) *sLogger {
 	return r
 }
 
-func (r *sLogger) setUser(ctx contextplus.Context) *sLogger {
+func (r *sLogger) setUser(ctx *contextplus.Context) *sLogger {
 	userId := ctx.User.Id().String()
 	if len(userId) != 0 {
 		r.WithString("userId", userId)
@@ -149,41 +149,41 @@ func (r *sLogger) setUser(ctx contextplus.Context) *sLogger {
 	return r
 }
 
-func (r *sLogger) logger(ctx contextplus.Context) *sLogger {
+func (r *sLogger) logger(ctx *contextplus.Context) *sLogger {
 	return r.setRequestId(ctx).setTraceId(ctx).setUser(ctx)
 }
 
-func (r *sLogger) Debug(ctx contextplus.Context, message string) {
+func (r *sLogger) Debug(ctx *contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Debug(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Info(ctx contextplus.Context, message string) {
+func (r *sLogger) Info(ctx *contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Info(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Warn(ctx contextplus.Context, message string) {
+func (r *sLogger) Warn(ctx *contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Warn(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Error(ctx contextplus.Context, message string) {
+func (r *sLogger) Error(ctx *contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Error(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) DPanic(ctx contextplus.Context, message string) {
+func (r *sLogger) DPanic(ctx *contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).DPanic(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Panic(ctx contextplus.Context, message string) {
+func (r *sLogger) Panic(ctx *contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Panic(message, r.fields...)
 	r.fields = nil
 }
 
-func (r *sLogger) Fatal(ctx contextplus.Context, message string) {
+func (r *sLogger) Fatal(ctx *contextplus.Context, message string) {
 	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Fatal(message, r.fields...)
 	r.fields = nil
 }

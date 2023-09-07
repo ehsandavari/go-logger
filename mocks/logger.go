@@ -39,7 +39,7 @@ func (m *MockILogger) EXPECT() *MockILoggerMockRecorder {
 }
 
 // DPanic mocks base method.
-func (m *MockILogger) DPanic(arg0 contextplus.Context, arg1 string) {
+func (m *MockILogger) DPanic(arg0 *contextplus.Context, arg1 string) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "DPanic", arg0, arg1)
 }
@@ -51,7 +51,7 @@ func (mr *MockILoggerMockRecorder) DPanic(arg0, arg1 interface{}) *gomock.Call {
 }
 
 // Debug mocks base method.
-func (m *MockILogger) Debug(arg0 contextplus.Context, arg1 string) {
+func (m *MockILogger) Debug(arg0 *contextplus.Context, arg1 string) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Debug", arg0, arg1)
 }
@@ -63,7 +63,7 @@ func (mr *MockILoggerMockRecorder) Debug(arg0, arg1 interface{}) *gomock.Call {
 }
 
 // Error mocks base method.
-func (m *MockILogger) Error(arg0 contextplus.Context, arg1 string) {
+func (m *MockILogger) Error(arg0 *contextplus.Context, arg1 string) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Error", arg0, arg1)
 }
@@ -75,7 +75,7 @@ func (mr *MockILoggerMockRecorder) Error(arg0, arg1 interface{}) *gomock.Call {
 }
 
 // Fatal mocks base method.
-func (m *MockILogger) Fatal(arg0 contextplus.Context, arg1 string) {
+func (m *MockILogger) Fatal(arg0 *contextplus.Context, arg1 string) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Fatal", arg0, arg1)
 }
@@ -87,7 +87,7 @@ func (mr *MockILoggerMockRecorder) Fatal(arg0, arg1 interface{}) *gomock.Call {
 }
 
 // Info mocks base method.
-func (m *MockILogger) Info(arg0 contextplus.Context, arg1 string) {
+func (m *MockILogger) Info(arg0 *contextplus.Context, arg1 string) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Info", arg0, arg1)
 }
@@ -99,7 +99,7 @@ func (mr *MockILoggerMockRecorder) Info(arg0, arg1 interface{}) *gomock.Call {
 }
 
 // Panic mocks base method.
-func (m *MockILogger) Panic(arg0 contextplus.Context, arg1 string) {
+func (m *MockILogger) Panic(arg0 *contextplus.Context, arg1 string) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Panic", arg0, arg1)
 }
@@ -125,7 +125,7 @@ func (mr *MockILoggerMockRecorder) Sync() *gomock.Call {
 }
 
 // Warn mocks base method.
-func (m *MockILogger) Warn(arg0 contextplus.Context, arg1 string) {
+func (m *MockILogger) Warn(arg0 *contextplus.Context, arg1 string) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Warn", arg0, arg1)
 }
