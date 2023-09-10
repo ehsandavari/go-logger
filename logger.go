@@ -2,6 +2,7 @@ package logger
 
 import (
 	"github.com/ehsandavari/go-context-plus"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	gormLogger "gorm.io/gorm/logger"
@@ -141,9 +142,9 @@ func (r *sLogger) setTraceId(ctx *contextplus.Context) *sLogger {
 }
 
 func (r *sLogger) setUser(ctx *contextplus.Context) *sLogger {
-	userId := ctx.User.Id().String()
-	if len(userId) != 0 {
-		r.WithString("userId", userId)
+	userId := ctx.User.Id()
+	if userId != uuid.Nil {
+		r.WithString("userId", userId.String())
 	}
 	userPhoneNumber := ctx.User.PhoneNumber()
 	if len(userPhoneNumber) != 0 {
