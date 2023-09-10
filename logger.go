@@ -4,6 +4,7 @@ import (
 	"github.com/ehsandavari/go-context-plus"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	gormLogger "gorm.io/gorm/logger"
 	"log"
 	"os"
 )
@@ -19,14 +20,16 @@ type ILogger interface {
 	Panic(ctx *contextplus.Context, message string)
 	Fatal(ctx *contextplus.Context, message string)
 	IField
+	GormLogger() gormLogger.Interface
 	Sync() error
 }
 
 type sLogger struct {
-	sConfig *sConfig
-	sLogger *zap.Logger
-	fields  []zap.Field
-	cores   []zapcore.Core
+	sConfig    *sConfig
+	zapLogger  *zap.Logger
+	fields     []zap.Field
+	cores      []zapcore.Core
+	gormLogger gormLogger.Interface
 }
 
 func NewLogger(isDevelopment bool, disableStacktrace bool, disableStdout bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string, options ...Option) ILogger {
@@ -62,7 +65,7 @@ var loggerLevelMap = map[string]zapcore.Level{
 	"fatal":  zapcore.FatalLevel,
 }
 
-func (r *sLogger) getLoggerLevel() zapcore.Level {
+func (r *sLogger) getLevel() zapcore.Level {
 	level, exist := loggerLevelMap[r.sConfig.level]
 	if !exist {
 		log.Fatalln("logger level is not valid")
@@ -78,7 +81,7 @@ func (r *sLogger) config() zap.Config {
 		loggerConfig.EncoderConfig.ConsoleSeparator = " || "
 	}
 
-	loggerConfig.Level = zap.NewAtomicLevelAt(r.getLoggerLevel())
+	loggerConfig.Level = zap.NewAtomicLevelAt(r.getLevel())
 	loggerConfig.DisableStacktrace = r.sConfig.disableStacktrace
 
 	loggerConfig.EncoderConfig.NameKey = "[ServiceName]"
@@ -97,10 +100,10 @@ func (r *sLogger) init() {
 		r.cores = append(r.cores, zapcore.NewCore(
 			zapcore.NewConsoleEncoder(r.config().EncoderConfig),
 			zapcore.AddSync(os.Stdout),
-			zap.NewAtomicLevelAt(r.getLoggerLevel()),
+			zap.NewAtomicLevelAt(r.getLevel()),
 		))
 	}
-	r.sLogger = zap.New(
+	r.zapLogger = zap.New(
 		zapcore.NewTee(r.cores...),
 		zap.AddCaller(),
 		zap.AddCallerSkip(1),
@@ -118,7 +121,7 @@ func (r *sLogger) init() {
 }
 
 func (r *sLogger) named(name string) {
-	r.sLogger = r.sLogger.Named(name)
+	r.zapLogger = r.zapLogger.Named(name)
 }
 
 func (r *sLogger) setRequestId(ctx *contextplus.Context) *sLogger {
@@ -154,40 +157,44 @@ func (r *sLogger) logger(ctx *contextplus.Context) *sLogger {
 }
 
 func (r *sLogger) Debug(ctx *contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Debug(message, r.fields...)
+	r.logger(ctx).zapLogger.With(zap.Namespace("[Details]")).Debug(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Info(ctx *contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Info(message, r.fields...)
+	r.logger(ctx).zapLogger.With(zap.Namespace("[Details]")).Info(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Warn(ctx *contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Warn(message, r.fields...)
+	r.logger(ctx).zapLogger.With(zap.Namespace("[Details]")).Warn(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Error(ctx *contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Error(message, r.fields...)
+	r.logger(ctx).zapLogger.With(zap.Namespace("[Details]")).Error(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) DPanic(ctx *contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).DPanic(message, r.fields...)
+	r.logger(ctx).zapLogger.With(zap.Namespace("[Details]")).DPanic(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Panic(ctx *contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Panic(message, r.fields...)
+	r.logger(ctx).zapLogger.With(zap.Namespace("[Details]")).Panic(message, r.fields...)
 	r.fields = nil
 }
 
 func (r *sLogger) Fatal(ctx *contextplus.Context, message string) {
-	r.logger(ctx).sLogger.With(zap.Namespace("[Details]")).Fatal(message, r.fields...)
+	r.logger(ctx).zapLogger.With(zap.Namespace("[Details]")).Fatal(message, r.fields...)
 	r.fields = nil
 }
 
+func (r *sLogger) GormLogger() gormLogger.Interface {
+	return r.gormLogger
+}
+
 func (r *sLogger) Sync() error {
-	return r.sLogger.Sync()
+	return r.zapLogger.Sync()
 }

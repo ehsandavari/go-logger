@@ -32,7 +32,24 @@ func WithElk(endpoint string, timeoutSecond byte) Option {
 		logger.cores = append(logger.cores, ecszap.WrapCore(zapcore.NewCore(
 			zapcore.NewJSONEncoder(loggerConfig.EncoderConfig),
 			zapcore.AddSync(conn),
-			zap.NewAtomicLevelAt(logger.getLoggerLevel()),
+			zap.NewAtomicLevelAt(logger.getLevel()),
 		)))
+	})
+}
+
+func WithGormLogger(slowThreshold time.Duration, colorful, ignoreRecordNotFoundError, parameterizedQueries bool) Option {
+	return optionFunc(func(logger *sLogger) {
+		level, exist := gormLoggerLevelMap[logger.sConfig.level]
+		if !exist {
+			log.Fatalln("logger level is not valid")
+		}
+		logger.gormLogger = &sGormLogger{
+			sLogger:                   logger,
+			SlowThreshold:             slowThreshold,
+			Colorful:                  colorful,
+			IgnoreRecordNotFoundError: ignoreRecordNotFoundError,
+			ParameterizedQueries:      parameterizedQueries,
+			LogLevel:                  level,
+		}
 	})
 }

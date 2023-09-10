@@ -3,7 +3,7 @@ module github.com/ehsandavari/go-logger
 go 1.21
 
 require (
-	github.com/ehsandavari/go-context-plus v1.0.1
+	github.com/ehsandavari/go-context-plus v1.0.2
 	go.elastic.co/ecszap v1.0.2
 	go.uber.org/mock v0.2.0
 	go.uber.org/zap v1.25.0
