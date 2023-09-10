@@ -3,6 +3,7 @@ package logger
 import (
 	"context"
 	"errors"
+	"fmt"
 	contextplus "github.com/ehsandavari/go-context-plus"
 	"gorm.io/gorm"
 	gormLogger "gorm.io/gorm/logger"
@@ -59,16 +60,32 @@ func (r *sGormLogger) Trace(ctx context.Context, begin time.Time, fc func() (str
 	switch {
 	case err != nil && r.LogLevel >= gormLogger.Error && (!r.IgnoreRecordNotFoundError || !errors.Is(err, gorm.ErrRecordNotFound)):
 		sql, rows := fc()
-		r.iLogger.WithEvent("gorm").WithError(err).WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Error(contextplus.NewContext(ctx), "trace")
+		if rows != -1 {
+			r.iLogger.WithEvent("gorm").WithError(err).WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Error(contextplus.NewContext(ctx), "trace")
+			break
+		}
+		r.iLogger.WithEvent("gorm").WithError(err).WithDuration("elapsed", elapsed).WithString("sql", sql).Error(contextplus.NewContext(ctx), "trace")
 	case r.SlowThreshold != 0 && elapsed > r.SlowThreshold && r.LogLevel >= gormLogger.Warn:
 		sql, rows := fc()
-		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Warn(contextplus.NewContext(ctx), "trace")
+		if rows != -1 {
+			r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Warn(contextplus.NewContext(ctx), "trace")
+			break
+		}
+		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithString("sql", sql).Warn(contextplus.NewContext(ctx), "trace")
 	case r.LogLevel >= gormLogger.Info:
 		sql, rows := fc()
-		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Info(contextplus.NewContext(ctx), "trace")
-	case r.LogLevel >= gormLogger.Silent:
+		if rows != -1 {
+			r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Info(contextplus.NewContext(ctx), "trace")
+			break
+		}
+		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithString("sql", sql).Info(contextplus.NewContext(ctx), "trace")
+	case r.LogLevel == gormLogger.Silent:
 		sql, rows := fc()
-		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Debug(contextplus.NewContext(ctx), "trace")
+		if rows != -1 {
+			r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Debug(contextplus.NewContext(ctx), "trace")
+			break
+		}
+		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithString("sql", sql).Debug(contextplus.NewContext(ctx), "trace")
 	}
 }
 
@@ -77,4 +94,19 @@ func (r *sGormLogger) ParamsFilter(ctx context.Context, sql string, params ...in
 		return sql, nil
 	}
 	return sql, params
+}
+
+func Foo(n int) int {
+	fmt.Println(n)
+	return n
+}
+
+func main() {
+	switch Foo(2) {
+	case Foo(1), Foo(2), Foo(3):
+		fmt.Println("First case")
+		fallthrough
+	case Foo(4):
+		fmt.Println("Second case")
+	}
 }
