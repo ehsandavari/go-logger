@@ -80,6 +80,7 @@ type IField interface {
 	WithStringers(key string, value []fmt.Stringer) ILogger
 	WithHttpRequest(value *http.Request) ILogger
 	WithHttpResponse(value *http.Response) ILogger
+	WithEvent(value string) ILogger
 }
 
 func (r *sLogger) WithBinary(key string, value []byte) ILogger {
@@ -445,5 +446,10 @@ func (r *sLogger) WithHttpResponse(value *http.Response) ILogger {
 		return r
 	}
 	r.fields = append(r.fields, zap.Object("httpResponse", newHttpResponse(value)))
+	return r
+}
+
+func (r *sLogger) WithEvent(value string) ILogger {
+	r.fields = append(r.fields, zap.String("event", value))
 	return r
 }

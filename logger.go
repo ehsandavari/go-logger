@@ -69,7 +69,7 @@ var loggerLevelMap = map[string]zapcore.Level{
 func (r *sLogger) getLevel() zapcore.Level {
 	level, exist := loggerLevelMap[r.sConfig.level]
 	if !exist {
-		log.Fatalln("logger level is not valid")
+		log.Fatalln("log level is not valid")
 	}
 	return level
 }
