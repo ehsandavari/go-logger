@@ -37,21 +37,21 @@ func (r *sGormLogger) Info(ctx context.Context, str string, args ...any) {
 	if r.LogLevel < gormLogger.Info {
 		return
 	}
-	r.iLogger.WithAny("args", args).Debug(contextplus.NewContext(ctx), str)
+	r.iLogger.WithEvent("gorm").WithAny("args", args).Debug(contextplus.NewContext(ctx), str)
 }
 
 func (r *sGormLogger) Warn(ctx context.Context, str string, args ...any) {
 	if r.LogLevel < gormLogger.Warn {
 		return
 	}
-	r.iLogger.WithAny("args", args).Warn(contextplus.NewContext(ctx), str)
+	r.iLogger.WithEvent("gorm").WithAny("args", args).Warn(contextplus.NewContext(ctx), str)
 }
 
 func (r *sGormLogger) Error(ctx context.Context, str string, args ...any) {
 	if r.LogLevel < gormLogger.Error {
 		return
 	}
-	r.iLogger.WithAny("args", args).Error(contextplus.NewContext(ctx), str)
+	r.iLogger.WithEvent("gorm").WithAny("args", args).Error(contextplus.NewContext(ctx), str)
 }
 
 func (r *sGormLogger) Trace(ctx context.Context, begin time.Time, fc func() (string, int64), err error) {
@@ -62,13 +62,13 @@ func (r *sGormLogger) Trace(ctx context.Context, begin time.Time, fc func() (str
 	switch {
 	case err != nil && r.LogLevel >= gormLogger.Error && (!r.IgnoreRecordNotFoundError || !errors.Is(err, gorm.ErrRecordNotFound)):
 		sql, rows := fc()
-		r.iLogger.WithError(err).WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Error(contextplus.NewContext(ctx), "trace")
+		r.iLogger.WithEvent("gorm").WithError(err).WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Error(contextplus.NewContext(ctx), "trace")
 	case r.SlowThreshold != 0 && elapsed > r.SlowThreshold && r.LogLevel >= gormLogger.Warn:
 		sql, rows := fc()
-		r.iLogger.WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Warn(contextplus.NewContext(ctx), "trace")
+		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Warn(contextplus.NewContext(ctx), "trace")
 	case r.LogLevel >= gormLogger.Info:
 		sql, rows := fc()
-		r.iLogger.WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Debug(contextplus.NewContext(ctx), "trace")
+		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Debug(contextplus.NewContext(ctx), "trace")
 	}
 }
 

@@ -44,7 +44,7 @@ func WithGormLogger(slowThreshold time.Duration, ignoreRecordNotFoundError, para
 			log.Fatalln("log level is not valid")
 		}
 		logger.gormLogger = &sGormLogger{
-			iLogger:                   logger.WithEvent("gorm"),
+			iLogger:                   logger,
 			SlowThreshold:             slowThreshold,
 			IgnoreRecordNotFoundError: ignoreRecordNotFoundError,
 			ParameterizedQueries:      parameterizedQueries,
