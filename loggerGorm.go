@@ -55,9 +55,6 @@ func (r *sGormLogger) Error(ctx context.Context, str string, args ...any) {
 }
 
 func (r *sGormLogger) Trace(ctx context.Context, begin time.Time, fc func() (string, int64), err error) {
-	if r.LogLevel <= gormLogger.Silent {
-		return
-	}
 	elapsed := time.Since(begin)
 	switch {
 	case err != nil && r.LogLevel >= gormLogger.Error && (!r.IgnoreRecordNotFoundError || !errors.Is(err, gorm.ErrRecordNotFound)):
@@ -67,6 +64,9 @@ func (r *sGormLogger) Trace(ctx context.Context, begin time.Time, fc func() (str
 		sql, rows := fc()
 		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Warn(contextplus.NewContext(ctx), "trace")
 	case r.LogLevel >= gormLogger.Info:
+		sql, rows := fc()
+		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Info(contextplus.NewContext(ctx), "trace")
+	case r.LogLevel >= gormLogger.Silent:
 		sql, rows := fc()
 		r.iLogger.WithEvent("gorm").WithDuration("elapsed", elapsed).WithInt64("rows", rows).WithString("sql", sql).Debug(contextplus.NewContext(ctx), "trace")
 	}
