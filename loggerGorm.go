@@ -3,7 +3,6 @@ package logger
 import (
 	"context"
 	"errors"
-	"fmt"
 	contextplus "github.com/ehsandavari/go-context-plus"
 	"gorm.io/gorm"
 	gormLogger "gorm.io/gorm/logger"
@@ -18,7 +17,7 @@ type sGormLogger struct {
 	LogLevel                  gormLogger.LogLevel
 }
 
-var gormLoggerLevelMap = map[string]gormLogger.LogLevel{
+var gormLogLevelMap = map[string]gormLogger.LogLevel{
 	"debug":  gormLogger.Silent,
 	"info":   gormLogger.Info,
 	"warn":   gormLogger.Warn,
@@ -86,24 +85,9 @@ func (r *sGormLogger) Trace(ctx context.Context, begin time.Time, fc func() (str
 	}
 }
 
-func (r *sGormLogger) ParamsFilter(ctx context.Context, sql string, params ...interface{}) (string, []interface{}) {
+func (r *sGormLogger) ParamsFilter(_ context.Context, sql string, params ...interface{}) (string, []interface{}) {
 	if r.ParameterizedQueries {
 		return sql, nil
 	}
 	return sql, params
-}
-
-func Foo(n int) int {
-	fmt.Println(n)
-	return n
-}
-
-func main() {
-	switch Foo(2) {
-	case Foo(1), Foo(2), Foo(3):
-		fmt.Println("First case")
-		fallthrough
-	case Foo(4):
-		fmt.Println("Second case")
-	}
 }

@@ -39,7 +39,7 @@ func WithElk(endpoint string, timeoutSecond byte) Option {
 
 func WithGormLogger(slowThreshold time.Duration, ignoreRecordNotFoundError, parameterizedQueries bool) Option {
 	return optionFunc(func(logger *sLogger) {
-		level, exist := gormLoggerLevelMap[logger.sConfig.level]
+		level, exist := gormLogLevelMap[logger.sConfig.level]
 		if !exist {
 			log.Fatalln("log level is not valid")
 		}

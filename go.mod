@@ -4,6 +4,7 @@ go 1.21
 
 require (
 	github.com/ehsandavari/go-context-plus v1.0.2
+	github.com/google/uuid v1.3.1
 	go.elastic.co/ecszap v1.0.2
 	go.uber.org/mock v0.2.0
 	go.uber.org/zap v1.25.0
@@ -22,7 +23,6 @@ require (
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.15.3 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
-	github.com/google/uuid v1.3.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
