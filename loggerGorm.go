@@ -9,6 +9,12 @@ import (
 	"time"
 )
 
+type IGormLogger interface {
+	gormLogger.Interface
+	gorm.ParamsFilter
+	LogSlowThreshold(slowThreshold time.Duration)
+}
+
 type sGormLogger struct {
 	iLogger                   ILogger
 	SlowThreshold             time.Duration
@@ -25,6 +31,10 @@ var gormLogLevelMap = map[string]gormLogger.LogLevel{
 	"dPanic": gormLogger.Error,
 	"panic":  gormLogger.Error,
 	"fatal":  gormLogger.Error,
+}
+
+func (r *sGormLogger) LogSlowThreshold(slowThreshold time.Duration) {
+	r.SlowThreshold = slowThreshold
 }
 
 func (r *sGormLogger) LogMode(level gormLogger.LogLevel) gormLogger.Interface {

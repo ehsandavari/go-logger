@@ -5,7 +5,6 @@ import (
 	"github.com/google/uuid"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	gormLogger "gorm.io/gorm/logger"
 	"log"
 	"os"
 )
@@ -21,16 +20,16 @@ type ILogger interface {
 	Panic(ctx *contextplus.Context, message string)
 	Fatal(ctx *contextplus.Context, message string)
 	IField
-	GormLogger() gormLogger.Interface
+	GormLogger() IGormLogger
 	Sync() error
 }
 
 type sLogger struct {
-	sConfig    *sConfig
-	zapLogger  *zap.Logger
-	fields     []zap.Field
-	cores      []zapcore.Core
-	gormLogger gormLogger.Interface
+	sConfig     *sConfig
+	zapLogger   *zap.Logger
+	fields      []zap.Field
+	cores       []zapcore.Core
+	iGormLogger IGormLogger
 }
 
 func NewLogger(isDevelopment bool, disableStacktrace bool, disableStdout bool, level string, serviceId int, serviceName string, serviceNamespace string, serviceInstanceId string, serviceVersion string, serviceMode string, serviceCommitId string, options ...Option) ILogger {
@@ -192,8 +191,8 @@ func (r *sLogger) Fatal(ctx *contextplus.Context, message string) {
 	r.fields = nil
 }
 
-func (r *sLogger) GormLogger() gormLogger.Interface {
-	return r.gormLogger
+func (r *sLogger) GormLogger() IGormLogger {
+	return r.iGormLogger
 }
 
 func (r *sLogger) Sync() error {
