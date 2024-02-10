@@ -16,7 +16,6 @@ import (
 	time "time"
 
 	contextplus "github.com/ehsandavari/go-context-plus"
-	logger "github.com/ehsandavari/go-logger"
 	gomock "go.uber.org/mock/gomock"
 )
 
@@ -26,7 +25,7 @@ type MockILogger struct {
 	recorder *MockILoggerMockRecorder
 }
 
-// MockILoggerMockRecorder is the mock recorder for MockILogger.
+// MockILoggerMockRecorder is the mock recorder for MockI
 type MockILoggerMockRecorder struct {
 	mock *MockILogger
 }
@@ -92,14 +91,14 @@ func (mr *MockILoggerMockRecorder) Fatal(arg0, arg1 any) *gomock.Call {
 }
 
 // GormLogger mocks base method.
-func (m *MockILogger) GormLogger() logger.IGormLogger {
+func (m *MockILogger) GormLogger() IGormLogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GormLogger")
-	ret0, _ := ret[0].(logger.IGormLogger)
+	ret0, _ := ret[0].(IGormLogger)
 	return ret0
 }
 
-// GormLogger indicates an expected call of GormLogger.
+// GormLogger indicates an expected call of Gorm
 func (mr *MockILoggerMockRecorder) GormLogger() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GormLogger", reflect.TypeOf((*MockILogger)(nil).GormLogger))
@@ -156,10 +155,10 @@ func (mr *MockILoggerMockRecorder) Warn(arg0, arg1 any) *gomock.Call {
 }
 
 // WithAny mocks base method.
-func (m *MockILogger) WithAny(arg0 string, arg1 any) logger.ILogger {
+func (m *MockILogger) WithAny(arg0 string, arg1 any) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithAny", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -170,10 +169,10 @@ func (mr *MockILoggerMockRecorder) WithAny(arg0, arg1 any) *gomock.Call {
 }
 
 // WithBinary mocks base method.
-func (m *MockILogger) WithBinary(arg0 string, arg1 []byte) logger.ILogger {
+func (m *MockILogger) WithBinary(arg0 string, arg1 []byte) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithBinary", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -184,10 +183,10 @@ func (mr *MockILoggerMockRecorder) WithBinary(arg0, arg1 any) *gomock.Call {
 }
 
 // WithBool mocks base method.
-func (m *MockILogger) WithBool(arg0 string, arg1 bool) logger.ILogger {
+func (m *MockILogger) WithBool(arg0 string, arg1 bool) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithBool", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -198,10 +197,10 @@ func (mr *MockILoggerMockRecorder) WithBool(arg0, arg1 any) *gomock.Call {
 }
 
 // WithBoolp mocks base method.
-func (m *MockILogger) WithBoolp(arg0 string, arg1 *bool) logger.ILogger {
+func (m *MockILogger) WithBoolp(arg0 string, arg1 *bool) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithBoolp", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -212,10 +211,10 @@ func (mr *MockILoggerMockRecorder) WithBoolp(arg0, arg1 any) *gomock.Call {
 }
 
 // WithBools mocks base method.
-func (m *MockILogger) WithBools(arg0 string, arg1 []bool) logger.ILogger {
+func (m *MockILogger) WithBools(arg0 string, arg1 []bool) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithBools", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -226,10 +225,10 @@ func (mr *MockILoggerMockRecorder) WithBools(arg0, arg1 any) *gomock.Call {
 }
 
 // WithByteString mocks base method.
-func (m *MockILogger) WithByteString(arg0 string, arg1 []byte) logger.ILogger {
+func (m *MockILogger) WithByteString(arg0 string, arg1 []byte) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithByteString", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -240,10 +239,10 @@ func (mr *MockILoggerMockRecorder) WithByteString(arg0, arg1 any) *gomock.Call {
 }
 
 // WithByteStrings mocks base method.
-func (m *MockILogger) WithByteStrings(arg0 string, arg1 [][]byte) logger.ILogger {
+func (m *MockILogger) WithByteStrings(arg0 string, arg1 [][]byte) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithByteStrings", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -254,10 +253,10 @@ func (mr *MockILoggerMockRecorder) WithByteStrings(arg0, arg1 any) *gomock.Call 
 }
 
 // WithComplex128 mocks base method.
-func (m *MockILogger) WithComplex128(arg0 string, arg1 complex128) logger.ILogger {
+func (m *MockILogger) WithComplex128(arg0 string, arg1 complex128) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithComplex128", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -268,10 +267,10 @@ func (mr *MockILoggerMockRecorder) WithComplex128(arg0, arg1 any) *gomock.Call {
 }
 
 // WithComplex128p mocks base method.
-func (m *MockILogger) WithComplex128p(arg0 string, arg1 *complex128) logger.ILogger {
+func (m *MockILogger) WithComplex128p(arg0 string, arg1 *complex128) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithComplex128p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -282,10 +281,10 @@ func (mr *MockILoggerMockRecorder) WithComplex128p(arg0, arg1 any) *gomock.Call 
 }
 
 // WithComplex128s mocks base method.
-func (m *MockILogger) WithComplex128s(arg0 string, arg1 []complex128) logger.ILogger {
+func (m *MockILogger) WithComplex128s(arg0 string, arg1 []complex128) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithComplex128s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -296,10 +295,10 @@ func (mr *MockILoggerMockRecorder) WithComplex128s(arg0, arg1 any) *gomock.Call 
 }
 
 // WithComplex64 mocks base method.
-func (m *MockILogger) WithComplex64(arg0 string, arg1 complex64) logger.ILogger {
+func (m *MockILogger) WithComplex64(arg0 string, arg1 complex64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithComplex64", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -310,10 +309,10 @@ func (mr *MockILoggerMockRecorder) WithComplex64(arg0, arg1 any) *gomock.Call {
 }
 
 // WithComplex64p mocks base method.
-func (m *MockILogger) WithComplex64p(arg0 string, arg1 *complex64) logger.ILogger {
+func (m *MockILogger) WithComplex64p(arg0 string, arg1 *complex64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithComplex64p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -324,10 +323,10 @@ func (mr *MockILoggerMockRecorder) WithComplex64p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithComplex64s mocks base method.
-func (m *MockILogger) WithComplex64s(arg0 string, arg1 []complex64) logger.ILogger {
+func (m *MockILogger) WithComplex64s(arg0 string, arg1 []complex64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithComplex64s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -338,10 +337,10 @@ func (mr *MockILoggerMockRecorder) WithComplex64s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithDuration mocks base method.
-func (m *MockILogger) WithDuration(arg0 string, arg1 time.Duration) logger.ILogger {
+func (m *MockILogger) WithDuration(arg0 string, arg1 time.Duration) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithDuration", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -352,10 +351,10 @@ func (mr *MockILoggerMockRecorder) WithDuration(arg0, arg1 any) *gomock.Call {
 }
 
 // WithDurationp mocks base method.
-func (m *MockILogger) WithDurationp(arg0 string, arg1 *time.Duration) logger.ILogger {
+func (m *MockILogger) WithDurationp(arg0 string, arg1 *time.Duration) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithDurationp", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -366,10 +365,10 @@ func (mr *MockILoggerMockRecorder) WithDurationp(arg0, arg1 any) *gomock.Call {
 }
 
 // WithDurations mocks base method.
-func (m *MockILogger) WithDurations(arg0 string, arg1 []time.Duration) logger.ILogger {
+func (m *MockILogger) WithDurations(arg0 string, arg1 []time.Duration) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithDurations", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -380,10 +379,10 @@ func (mr *MockILoggerMockRecorder) WithDurations(arg0, arg1 any) *gomock.Call {
 }
 
 // WithError mocks base method.
-func (m *MockILogger) WithError(arg0 error) logger.ILogger {
+func (m *MockILogger) WithError(arg0 error) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithError", arg0)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -394,10 +393,10 @@ func (mr *MockILoggerMockRecorder) WithError(arg0 any) *gomock.Call {
 }
 
 // WithErrors mocks base method.
-func (m *MockILogger) WithErrors(arg0 string, arg1 []error) logger.ILogger {
+func (m *MockILogger) WithErrors(arg0 string, arg1 []error) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithErrors", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -408,10 +407,10 @@ func (mr *MockILoggerMockRecorder) WithErrors(arg0, arg1 any) *gomock.Call {
 }
 
 // WithEvent mocks base method.
-func (m *MockILogger) WithEvent(arg0 string) logger.ILogger {
+func (m *MockILogger) WithEvent(arg0 string) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithEvent", arg0)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -422,10 +421,10 @@ func (mr *MockILoggerMockRecorder) WithEvent(arg0 any) *gomock.Call {
 }
 
 // WithFloat32 mocks base method.
-func (m *MockILogger) WithFloat32(arg0 string, arg1 float32) logger.ILogger {
+func (m *MockILogger) WithFloat32(arg0 string, arg1 float32) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithFloat32", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -436,10 +435,10 @@ func (mr *MockILoggerMockRecorder) WithFloat32(arg0, arg1 any) *gomock.Call {
 }
 
 // WithFloat32p mocks base method.
-func (m *MockILogger) WithFloat32p(arg0 string, arg1 *float32) logger.ILogger {
+func (m *MockILogger) WithFloat32p(arg0 string, arg1 *float32) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithFloat32p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -450,10 +449,10 @@ func (mr *MockILoggerMockRecorder) WithFloat32p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithFloat32s mocks base method.
-func (m *MockILogger) WithFloat32s(arg0 string, arg1 []float32) logger.ILogger {
+func (m *MockILogger) WithFloat32s(arg0 string, arg1 []float32) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithFloat32s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -464,10 +463,10 @@ func (mr *MockILoggerMockRecorder) WithFloat32s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithFloat64 mocks base method.
-func (m *MockILogger) WithFloat64(arg0 string, arg1 float64) logger.ILogger {
+func (m *MockILogger) WithFloat64(arg0 string, arg1 float64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithFloat64", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -478,10 +477,10 @@ func (mr *MockILoggerMockRecorder) WithFloat64(arg0, arg1 any) *gomock.Call {
 }
 
 // WithFloat64p mocks base method.
-func (m *MockILogger) WithFloat64p(arg0 string, arg1 *float64) logger.ILogger {
+func (m *MockILogger) WithFloat64p(arg0 string, arg1 *float64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithFloat64p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -492,10 +491,10 @@ func (mr *MockILoggerMockRecorder) WithFloat64p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithFloat64s mocks base method.
-func (m *MockILogger) WithFloat64s(arg0 string, arg1 []float64) logger.ILogger {
+func (m *MockILogger) WithFloat64s(arg0 string, arg1 []float64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithFloat64s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -506,10 +505,10 @@ func (mr *MockILoggerMockRecorder) WithFloat64s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithHttpRequest mocks base method.
-func (m *MockILogger) WithHttpRequest(arg0 *http.Request) logger.ILogger {
+func (m *MockILogger) WithHttpRequest(arg0 *http.Request) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithHttpRequest", arg0)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -520,10 +519,10 @@ func (mr *MockILoggerMockRecorder) WithHttpRequest(arg0 any) *gomock.Call {
 }
 
 // WithHttpResponse mocks base method.
-func (m *MockILogger) WithHttpResponse(arg0 *http.Response) logger.ILogger {
+func (m *MockILogger) WithHttpResponse(arg0 *http.Response) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithHttpResponse", arg0)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -534,10 +533,10 @@ func (mr *MockILoggerMockRecorder) WithHttpResponse(arg0 any) *gomock.Call {
 }
 
 // WithInt mocks base method.
-func (m *MockILogger) WithInt(arg0 string, arg1 int) logger.ILogger {
+func (m *MockILogger) WithInt(arg0 string, arg1 int) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -548,10 +547,10 @@ func (mr *MockILoggerMockRecorder) WithInt(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt16 mocks base method.
-func (m *MockILogger) WithInt16(arg0 string, arg1 int16) logger.ILogger {
+func (m *MockILogger) WithInt16(arg0 string, arg1 int16) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt16", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -562,10 +561,10 @@ func (mr *MockILoggerMockRecorder) WithInt16(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt16p mocks base method.
-func (m *MockILogger) WithInt16p(arg0 string, arg1 *int16) logger.ILogger {
+func (m *MockILogger) WithInt16p(arg0 string, arg1 *int16) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt16p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -576,10 +575,10 @@ func (mr *MockILoggerMockRecorder) WithInt16p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt16s mocks base method.
-func (m *MockILogger) WithInt16s(arg0 string, arg1 []int16) logger.ILogger {
+func (m *MockILogger) WithInt16s(arg0 string, arg1 []int16) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt16s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -590,10 +589,10 @@ func (mr *MockILoggerMockRecorder) WithInt16s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt32 mocks base method.
-func (m *MockILogger) WithInt32(arg0 string, arg1 int32) logger.ILogger {
+func (m *MockILogger) WithInt32(arg0 string, arg1 int32) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt32", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -604,10 +603,10 @@ func (mr *MockILoggerMockRecorder) WithInt32(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt32p mocks base method.
-func (m *MockILogger) WithInt32p(arg0 string, arg1 *int32) logger.ILogger {
+func (m *MockILogger) WithInt32p(arg0 string, arg1 *int32) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt32p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -618,10 +617,10 @@ func (mr *MockILoggerMockRecorder) WithInt32p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt32s mocks base method.
-func (m *MockILogger) WithInt32s(arg0 string, arg1 []int32) logger.ILogger {
+func (m *MockILogger) WithInt32s(arg0 string, arg1 []int32) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt32s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -632,10 +631,10 @@ func (mr *MockILoggerMockRecorder) WithInt32s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt64 mocks base method.
-func (m *MockILogger) WithInt64(arg0 string, arg1 int64) logger.ILogger {
+func (m *MockILogger) WithInt64(arg0 string, arg1 int64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt64", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -646,10 +645,10 @@ func (mr *MockILoggerMockRecorder) WithInt64(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt64p mocks base method.
-func (m *MockILogger) WithInt64p(arg0 string, arg1 *int64) logger.ILogger {
+func (m *MockILogger) WithInt64p(arg0 string, arg1 *int64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt64p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -660,10 +659,10 @@ func (mr *MockILoggerMockRecorder) WithInt64p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt64s mocks base method.
-func (m *MockILogger) WithInt64s(arg0 string, arg1 []int64) logger.ILogger {
+func (m *MockILogger) WithInt64s(arg0 string, arg1 []int64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt64s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -674,10 +673,10 @@ func (mr *MockILoggerMockRecorder) WithInt64s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt8 mocks base method.
-func (m *MockILogger) WithInt8(arg0 string, arg1 int8) logger.ILogger {
+func (m *MockILogger) WithInt8(arg0 string, arg1 int8) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt8", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -688,10 +687,10 @@ func (mr *MockILoggerMockRecorder) WithInt8(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt8p mocks base method.
-func (m *MockILogger) WithInt8p(arg0 string, arg1 *int8) logger.ILogger {
+func (m *MockILogger) WithInt8p(arg0 string, arg1 *int8) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt8p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -702,10 +701,10 @@ func (mr *MockILoggerMockRecorder) WithInt8p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInt8s mocks base method.
-func (m *MockILogger) WithInt8s(arg0 string, arg1 []int8) logger.ILogger {
+func (m *MockILogger) WithInt8s(arg0 string, arg1 []int8) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInt8s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -716,10 +715,10 @@ func (mr *MockILoggerMockRecorder) WithInt8s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithIntp mocks base method.
-func (m *MockILogger) WithIntp(arg0 string, arg1 *int) logger.ILogger {
+func (m *MockILogger) WithIntp(arg0 string, arg1 *int) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithIntp", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -730,10 +729,10 @@ func (mr *MockILoggerMockRecorder) WithIntp(arg0, arg1 any) *gomock.Call {
 }
 
 // WithInts mocks base method.
-func (m *MockILogger) WithInts(arg0 string, arg1 []int) logger.ILogger {
+func (m *MockILogger) WithInts(arg0 string, arg1 []int) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithInts", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -744,10 +743,10 @@ func (mr *MockILoggerMockRecorder) WithInts(arg0, arg1 any) *gomock.Call {
 }
 
 // WithNamedError mocks base method.
-func (m *MockILogger) WithNamedError(arg0 string, arg1 error) logger.ILogger {
+func (m *MockILogger) WithNamedError(arg0 string, arg1 error) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithNamedError", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -758,10 +757,10 @@ func (mr *MockILoggerMockRecorder) WithNamedError(arg0, arg1 any) *gomock.Call {
 }
 
 // WithNamespace mocks base method.
-func (m *MockILogger) WithNamespace(arg0 string) logger.ILogger {
+func (m *MockILogger) WithNamespace(arg0 string) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithNamespace", arg0)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -772,10 +771,10 @@ func (mr *MockILoggerMockRecorder) WithNamespace(arg0 any) *gomock.Call {
 }
 
 // WithReflect mocks base method.
-func (m *MockILogger) WithReflect(arg0 string, arg1 any) logger.ILogger {
+func (m *MockILogger) WithReflect(arg0 string, arg1 any) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithReflect", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -786,10 +785,10 @@ func (mr *MockILoggerMockRecorder) WithReflect(arg0, arg1 any) *gomock.Call {
 }
 
 // WithStack mocks base method.
-func (m *MockILogger) WithStack(arg0 string) logger.ILogger {
+func (m *MockILogger) WithStack(arg0 string) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithStack", arg0)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -800,10 +799,10 @@ func (mr *MockILoggerMockRecorder) WithStack(arg0 any) *gomock.Call {
 }
 
 // WithStackSkip mocks base method.
-func (m *MockILogger) WithStackSkip(arg0 string, arg1 int) logger.ILogger {
+func (m *MockILogger) WithStackSkip(arg0 string, arg1 int) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithStackSkip", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -814,10 +813,10 @@ func (mr *MockILoggerMockRecorder) WithStackSkip(arg0, arg1 any) *gomock.Call {
 }
 
 // WithString mocks base method.
-func (m *MockILogger) WithString(arg0, arg1 string) logger.ILogger {
+func (m *MockILogger) WithString(arg0, arg1 string) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithString", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -828,10 +827,10 @@ func (mr *MockILoggerMockRecorder) WithString(arg0, arg1 any) *gomock.Call {
 }
 
 // WithStringer mocks base method.
-func (m *MockILogger) WithStringer(arg0 string, arg1 fmt.Stringer) logger.ILogger {
+func (m *MockILogger) WithStringer(arg0 string, arg1 fmt.Stringer) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithStringer", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -842,10 +841,10 @@ func (mr *MockILoggerMockRecorder) WithStringer(arg0, arg1 any) *gomock.Call {
 }
 
 // WithStringers mocks base method.
-func (m *MockILogger) WithStringers(arg0 string, arg1 []fmt.Stringer) logger.ILogger {
+func (m *MockILogger) WithStringers(arg0 string, arg1 []fmt.Stringer) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithStringers", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -856,10 +855,10 @@ func (mr *MockILoggerMockRecorder) WithStringers(arg0, arg1 any) *gomock.Call {
 }
 
 // WithStringp mocks base method.
-func (m *MockILogger) WithStringp(arg0 string, arg1 *string) logger.ILogger {
+func (m *MockILogger) WithStringp(arg0 string, arg1 *string) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithStringp", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -870,10 +869,10 @@ func (mr *MockILoggerMockRecorder) WithStringp(arg0, arg1 any) *gomock.Call {
 }
 
 // WithStrings mocks base method.
-func (m *MockILogger) WithStrings(arg0 string, arg1 []string) logger.ILogger {
+func (m *MockILogger) WithStrings(arg0 string, arg1 []string) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithStrings", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -884,10 +883,10 @@ func (mr *MockILoggerMockRecorder) WithStrings(arg0, arg1 any) *gomock.Call {
 }
 
 // WithTime mocks base method.
-func (m *MockILogger) WithTime(arg0 string, arg1 time.Time) logger.ILogger {
+func (m *MockILogger) WithTime(arg0 string, arg1 time.Time) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithTime", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -898,10 +897,10 @@ func (mr *MockILoggerMockRecorder) WithTime(arg0, arg1 any) *gomock.Call {
 }
 
 // WithTimep mocks base method.
-func (m *MockILogger) WithTimep(arg0 string, arg1 *time.Time) logger.ILogger {
+func (m *MockILogger) WithTimep(arg0 string, arg1 *time.Time) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithTimep", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -912,10 +911,10 @@ func (mr *MockILoggerMockRecorder) WithTimep(arg0, arg1 any) *gomock.Call {
 }
 
 // WithTimes mocks base method.
-func (m *MockILogger) WithTimes(arg0 string, arg1 []time.Time) logger.ILogger {
+func (m *MockILogger) WithTimes(arg0 string, arg1 []time.Time) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithTimes", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -926,10 +925,10 @@ func (mr *MockILoggerMockRecorder) WithTimes(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint mocks base method.
-func (m *MockILogger) WithUint(arg0 string, arg1 uint) logger.ILogger {
+func (m *MockILogger) WithUint(arg0 string, arg1 uint) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -940,10 +939,10 @@ func (mr *MockILoggerMockRecorder) WithUint(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint16 mocks base method.
-func (m *MockILogger) WithUint16(arg0 string, arg1 uint16) logger.ILogger {
+func (m *MockILogger) WithUint16(arg0 string, arg1 uint16) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint16", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -954,10 +953,10 @@ func (mr *MockILoggerMockRecorder) WithUint16(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint16p mocks base method.
-func (m *MockILogger) WithUint16p(arg0 string, arg1 *uint16) logger.ILogger {
+func (m *MockILogger) WithUint16p(arg0 string, arg1 *uint16) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint16p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -968,10 +967,10 @@ func (mr *MockILoggerMockRecorder) WithUint16p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint16s mocks base method.
-func (m *MockILogger) WithUint16s(arg0 string, arg1 []uint16) logger.ILogger {
+func (m *MockILogger) WithUint16s(arg0 string, arg1 []uint16) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint16s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -982,10 +981,10 @@ func (mr *MockILoggerMockRecorder) WithUint16s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint32 mocks base method.
-func (m *MockILogger) WithUint32(arg0 string, arg1 uint32) logger.ILogger {
+func (m *MockILogger) WithUint32(arg0 string, arg1 uint32) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint32", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -996,10 +995,10 @@ func (mr *MockILoggerMockRecorder) WithUint32(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint32p mocks base method.
-func (m *MockILogger) WithUint32p(arg0 string, arg1 *uint32) logger.ILogger {
+func (m *MockILogger) WithUint32p(arg0 string, arg1 *uint32) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint32p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1010,10 +1009,10 @@ func (mr *MockILoggerMockRecorder) WithUint32p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint32s mocks base method.
-func (m *MockILogger) WithUint32s(arg0 string, arg1 []uint32) logger.ILogger {
+func (m *MockILogger) WithUint32s(arg0 string, arg1 []uint32) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint32s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1024,10 +1023,10 @@ func (mr *MockILoggerMockRecorder) WithUint32s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint64 mocks base method.
-func (m *MockILogger) WithUint64(arg0 string, arg1 uint64) logger.ILogger {
+func (m *MockILogger) WithUint64(arg0 string, arg1 uint64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint64", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1038,10 +1037,10 @@ func (mr *MockILoggerMockRecorder) WithUint64(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint64p mocks base method.
-func (m *MockILogger) WithUint64p(arg0 string, arg1 *uint64) logger.ILogger {
+func (m *MockILogger) WithUint64p(arg0 string, arg1 *uint64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint64p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1052,10 +1051,10 @@ func (mr *MockILoggerMockRecorder) WithUint64p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint64s mocks base method.
-func (m *MockILogger) WithUint64s(arg0 string, arg1 []uint64) logger.ILogger {
+func (m *MockILogger) WithUint64s(arg0 string, arg1 []uint64) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint64s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1066,10 +1065,10 @@ func (mr *MockILoggerMockRecorder) WithUint64s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint8 mocks base method.
-func (m *MockILogger) WithUint8(arg0 string, arg1 byte) logger.ILogger {
+func (m *MockILogger) WithUint8(arg0 string, arg1 byte) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint8", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1080,10 +1079,10 @@ func (mr *MockILoggerMockRecorder) WithUint8(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint8p mocks base method.
-func (m *MockILogger) WithUint8p(arg0 string, arg1 *byte) logger.ILogger {
+func (m *MockILogger) WithUint8p(arg0 string, arg1 *byte) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint8p", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1094,10 +1093,10 @@ func (mr *MockILoggerMockRecorder) WithUint8p(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUint8s mocks base method.
-func (m *MockILogger) WithUint8s(arg0 string, arg1 []byte) logger.ILogger {
+func (m *MockILogger) WithUint8s(arg0 string, arg1 []byte) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUint8s", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1108,10 +1107,10 @@ func (mr *MockILoggerMockRecorder) WithUint8s(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUintp mocks base method.
-func (m *MockILogger) WithUintp(arg0 string, arg1 *uint) logger.ILogger {
+func (m *MockILogger) WithUintp(arg0 string, arg1 *uint) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUintp", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1122,10 +1121,10 @@ func (mr *MockILoggerMockRecorder) WithUintp(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUintptr mocks base method.
-func (m *MockILogger) WithUintptr(arg0 string, arg1 uintptr) logger.ILogger {
+func (m *MockILogger) WithUintptr(arg0 string, arg1 uintptr) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUintptr", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1136,10 +1135,10 @@ func (mr *MockILoggerMockRecorder) WithUintptr(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUintptrp mocks base method.
-func (m *MockILogger) WithUintptrp(arg0 string, arg1 *uintptr) logger.ILogger {
+func (m *MockILogger) WithUintptrp(arg0 string, arg1 *uintptr) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUintptrp", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1150,10 +1149,10 @@ func (mr *MockILoggerMockRecorder) WithUintptrp(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUintptrs mocks base method.
-func (m *MockILogger) WithUintptrs(arg0 string, arg1 []uintptr) logger.ILogger {
+func (m *MockILogger) WithUintptrs(arg0 string, arg1 []uintptr) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUintptrs", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
@@ -1164,10 +1163,10 @@ func (mr *MockILoggerMockRecorder) WithUintptrs(arg0, arg1 any) *gomock.Call {
 }
 
 // WithUints mocks base method.
-func (m *MockILogger) WithUints(arg0 string, arg1 []uint) logger.ILogger {
+func (m *MockILogger) WithUints(arg0 string, arg1 []uint) ILogger {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WithUints", arg0, arg1)
-	ret0, _ := ret[0].(logger.ILogger)
+	ret0, _ := ret[0].(ILogger)
 	return ret0
 }
 
