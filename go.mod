@@ -6,7 +6,7 @@ require (
 	github.com/ehsandavari/go-context-plus v1.0.6
 	github.com/google/uuid v1.3.1
 	go.elastic.co/ecszap v1.0.2
-	go.uber.org/mock v0.2.0
+	go.uber.org/mock v0.4.0
 	go.uber.org/zap v1.26.0
 	gorm.io/gorm v1.25.4
 	moul.io/http2curl v1.0.0

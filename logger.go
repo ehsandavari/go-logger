@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-//go:generate mockgen -destination=./mocks/logger.go -package=mocks github.com/ehsandavari/go-logger ILogger
+//go:generate mockgen -destination=./logger_mock.go -package=logger . ILogger
 
 type ILogger interface {
 	Debug(ctx *contextplus.Context, message string)
